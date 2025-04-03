@@ -72,6 +72,7 @@ flutter:
     - assets/logos/diksha/
     - assets/logos/insights/
     - assets/videos/
+    - assets/videos/diksha/
   fonts:
     - family: Google Sans
       fonts:
