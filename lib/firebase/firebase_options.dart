@@ -53,12 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB54bXuBBJXMQkGSzYAMTwlR1s70Ow3GQI',
-    appId: '1:547840922925:web:67f1a176218c443a70efa4',
-    messagingSenderId: '547840922925',
-    projectId: 'pydart-intellicorp',
-    authDomain: 'pydart-intellicorp.firebaseapp.com',
-    storageBucket: 'pydart-intellicorp.firebasestorage.app',
-    measurementId: 'G-R7DV0ZNJKL',
+ apiKey: "AIzaSyAqZCwYLtLCMeuby1segsD8Qz4Iw2fcnG8",
+  authDomain: "diksha-25.firebaseapp.com",
+  projectId: "diksha-25",
+  storageBucket: "diksha-25.firebasestorage.app",
+  messagingSenderId: "356046075194",
+  appId: "1:356046075194:web:f6e03fa5c6cdecdef30c03",
+  measurementId: "G-DW5G9F9PE5"
   );
 }
