@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_website/components/colors.dart';
+import 'package:flutter_website/screen/Home/blocks/block2.dart';
 import 'package:flutter_website/screen/home/blocks/HeaderBlock.dart';
-import 'package:flutter_website/screen/home/blocks/MobileDevelopment.dart';
+
 import 'package:flutter_website/screen/home/blocks/block1.dart'
     show TechFestHero;
 
@@ -24,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoaded = false;
   bool _showScrollButtons = false;
+   double _scrollOffset = 0.0;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -38,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final bool isAtTop = _scrollController.position.pixels == 0;
     setState(() {
       _showScrollButtons = !isAtBottom && !isAtTop;
+      _scrollOffset = _scrollController.position.pixels; // Update scroll offset
     });
   }
 
@@ -72,6 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+        final double opacity = (1.0 - (_scrollOffset / 200)).clamp(0.0, 1.0);
+    final double blurSigma = (_scrollOffset / 20).clamp(0.0, 10.0);
     return Scaffold(
       backgroundColor: background,
       // appBar: const PreferredSize(
@@ -99,7 +107,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: HeaderBlock(),
+                   child: Opacity(
+                      opacity: opacity,
+                      child: ClipRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(
+                            sigmaX: blurSigma,
+                            sigmaY: blurSigma,
+                          ),
+                          child: Container(
+                        
+                            child: HeaderBlock(),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -129,7 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: widget,
               ),
             ),
-            children: [TechFestHero()],
+            children: [TechFestHero(),
+            EventGrid()
+            ],
           ),
         ),
       ),
