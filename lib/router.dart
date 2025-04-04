@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_website/screen/Home/Homescreen.dart';
+import 'package:flutter_website/screen/Home/culturalscreen.dart';
 
 
 import 'package:get/get.dart';
@@ -8,7 +9,7 @@ import 'package:get/get.dart';
 // Assign an order/index to each route.
 final Map<String, int> routeOrder = {
   Routes.home: 0,
-  Routes.whoweare: 1,
+  Routes.culturalevents: 1,
   
 };
 
@@ -51,7 +52,7 @@ class CustomSlideTransition extends CustomTransition {
 
 class Routes {
   static const String home = '/';
-  static const String whoweare = '/whoweare';
+  static const String culturalevents = '/cultural-events';
 
 
   static final List<GetPage> pages = [
@@ -61,6 +62,11 @@ class Routes {
       customTransition: CustomSlideTransition(),
       transitionDuration: const Duration(milliseconds: 500),
     ),
-   
+     GetPage(
+      name: culturalevents,
+      page: () => CulturalEventsScreen(),
+      customTransition: CustomSlideTransition(),
+      transitionDuration: const Duration(milliseconds: 500),
+    ),
   ];
 }

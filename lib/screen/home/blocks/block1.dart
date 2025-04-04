@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
 class TechFestHero extends StatefulWidget {
@@ -151,10 +152,9 @@ class _TechFestHeroState extends State<TechFestHero>
               alignment: Alignment.center,
               child: Text(
                 letter,
-                style: TextStyle(
+                style: GoogleFonts.orbitron(
                   fontSize: isMobile ? 40 : 80,
                   fontWeight: FontWeight.w900,
-                  fontFamily: 'Orbitron',
                   foreground: Paint()
                     ..shader = LinearGradient(
                       colors: gradientColors,
@@ -174,7 +174,6 @@ class _TechFestHeroState extends State<TechFestHero>
       );
     }
   }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -282,16 +281,15 @@ class _TechFestHeroState extends State<TechFestHero>
                 isMobile ? 20 : 50,
                 0,
               ),
-              child: Column(
+               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'INTO THE',
-                    style: TextStyle(
+                    style: GoogleFonts.orbitron(
                       fontSize: isMobile ? 24 : 36,
                       fontWeight: FontWeight.w300,
-                      fontFamily: 'Orbitron',
                       color: Colors.white.withOpacity(0.8),
                       letterSpacing: 4,
                     ),
@@ -307,26 +305,20 @@ class _TechFestHeroState extends State<TechFestHero>
                         .toList(),
                   ),
                   const SizedBox(height: 20),
-                  // New Funky Text Widget for the Fest title.
                   AnimatedBuilder(
                     animation: _gridController,
                     builder: (context, child) {
                       final double animationValue = _gridController.value;
                       final Matrix4 transform = Matrix4.identity()
-                        ..rotateZ(0.02 *
-                            sin(animationValue *
-                                2 *
-                                pi)); // Slight rotation effect.
+                        ..rotateZ(0.02 * sin(animationValue * 2 * pi));
                       return Transform(
                         transform: transform,
                         alignment: Alignment.centerLeft,
                         child: Text(
                           'Technical and Cultural Fest',
-                          style: TextStyle(
+                          style: GoogleFonts.orbitron(
                             fontSize: isMobile ? 16 : 24,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Orbitron',
-                            // Funky animated gradient effect.
                             foreground: Paint()
                               ..shader = LinearGradient(
                                 colors: [
@@ -364,7 +356,6 @@ class _TechFestHeroState extends State<TechFestHero>
     );
   }
 }
-
 class _HolographicButton extends StatefulWidget {
   final VoidCallback onPressed;
   final double width;
@@ -447,9 +438,9 @@ class _HolographicButtonState extends State<_HolographicButton>
                     ),
                   ),
                   Center(
-                    child: Text(
+                   child: Text(
                       'EXPLORE NOW',
-                      style: TextStyle(
+                      style: GoogleFonts.orbitron(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

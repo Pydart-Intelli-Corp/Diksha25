@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HeaderBlock extends StatefulWidget {
   const HeaderBlock({super.key});
@@ -11,7 +12,7 @@ class HeaderBlock extends StatefulWidget {
 class _HeaderBlockState extends State<HeaderBlock> {
   int _selectedIndex = 0;
   bool _isMenuOpen = false;
-  final List<String> _navItems = ['Home', 'Events', 'Gallery', 'Contact us'];
+  final List<String> _navItems = ['HOME', 'EVENTS', 'GALLERY', 'CONTACT US'];
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,6 @@ class _HeaderBlockState extends State<HeaderBlock> {
 
   Widget _buildResponsiveLayout(bool isMobile, bool isTablet) {
     if (isMobile) {
-      // Mobile header now shows both the REGISTER and menu buttons.
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -95,7 +95,7 @@ class _HeaderBlockState extends State<HeaderBlock> {
         const Spacer(),
         ..._buildDesktopNav(isTablet),
         const Spacer(),
-        _buildJoinButton(isTablet), // Desktop REGISTER button
+        _buildJoinButton(isTablet),
       ],
     );
   }
@@ -107,17 +107,16 @@ class _HeaderBlockState extends State<HeaderBlock> {
         cursor: SystemMouseCursors.click,
         child: Row(
           children: [
-            // Replace the Icon with an Image.asset widget.
             Image.asset(
-              'assets/logos/diksha/dikshalogoyellow.png', // Make sure this path is correct
+              'assets/logos/diksha/dikshalogoyellow.png',
               width: 34,
               height: 34,
               fit: BoxFit.contain,
             ),
             const SizedBox(width: 12),
-            const Text(
+            Text(
               'DIKSHA 25',
-              style: TextStyle(
+              style: GoogleFonts.orbitron(
                 color: Colors.white,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -183,7 +182,7 @@ class _HeaderBlockState extends State<HeaderBlock> {
       children: [
         Text(
           item,
-          style: TextStyle(
+          style: GoogleFonts.orbitron(
             fontSize: 16,
             fontWeight: FontWeight.w500,
             shadows: _selectedIndex == index
@@ -219,7 +218,6 @@ class _HeaderBlockState extends State<HeaderBlock> {
   }
 
   Widget _buildJoinButton(bool isTablet) {
-    // Desktop REGISTER button
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: MouseRegion(
@@ -261,9 +259,9 @@ class _HeaderBlockState extends State<HeaderBlock> {
                 Icon(Icons.app_registration,
                     color: Colors.white, size: isTablet ? 20 : 22),
                 const SizedBox(width: 10),
-                const Text(
+                Text(
                   "REGISTER",
-                  style: TextStyle(
+                  style: GoogleFonts.orbitron(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -299,7 +297,6 @@ class _HeaderBlockState extends State<HeaderBlock> {
   }
 
   Widget _buildMobileRegisterButton() {
-    // Mobile header REGISTER button
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: MouseRegion(
@@ -331,9 +328,9 @@ class _HeaderBlockState extends State<HeaderBlock> {
                 ),
               ),
             ),
-            child: const Text(
+            child: Text(
               "REGISTER",
-              style: TextStyle(
+              style: GoogleFonts.orbitron(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -413,7 +410,7 @@ class _HeaderBlockState extends State<HeaderBlock> {
       title: Text(
         item,
         textAlign: TextAlign.center,
-        style: const TextStyle(
+        style: GoogleFonts.orbitron(
           color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w500,
@@ -421,13 +418,11 @@ class _HeaderBlockState extends State<HeaderBlock> {
       ),
       onTap: () {
         Navigator.pop(context);
-        // Handle navigation
       },
     );
   }
 
   Widget _buildMobileJoinButton() {
-    // Updated mobile dialog button label to "REGISTER"
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Container(
@@ -445,9 +440,9 @@ class _HeaderBlockState extends State<HeaderBlock> {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          child: const Text(
+          child: Text(
             "REGISTER",
-            style: TextStyle(
+            style: GoogleFonts.orbitron(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.bold,

@@ -1,6 +1,10 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_website/screen/Home/blocks/culturalcard.dart';
+
+import 'package:flutter_website/screen/Home/culturalscreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EventGrid extends StatelessWidget {
   const EventGrid({super.key});
@@ -8,7 +12,6 @@ class EventGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
-    // ... [Keep the existing events list data unchanged] ...
     final List<Map<String, dynamic>> events = [
       {
         'name': 'Robo War',
@@ -139,54 +142,82 @@ class EventGrid extends StatelessWidget {
         'color': Colors.deepOrange,
       },
     ];
+
     return Stack(
       children: [
-        // Cosmic Background
+        // Enhanced Cosmic Background with Tech Particles
         Positioned.fill(
-          child: CosmicBackground(),
-        ),
-
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(210, 28, 0, 37),
-                Color.fromARGB(222, 22, 0, 29),
-                Color.fromARGB(255, 0, 37, 17)
-              ],
-            ),
-          ),
-          child: Column(
+          child: Stack(
             children: [
-              _buildTitle(isMobile),
-              const SizedBox(height: 40),
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 1 : 3,
-                  mainAxisSpacing: 20,
-                  crossAxisSpacing: 20,
-                  childAspectRatio: 0.9,
-                ),
-                itemCount: events.length,
-                itemBuilder: (context, index) => _EventCard(
-                  eventName: events[index]['name'] as String,
-                  coordinator: events[index]['coordinator'] as String,
-                  contact: events[index]['contact'] as String,
-                  image: events[index]['image'] as String,
-                  description: events[index]['description'] as String,
-                  icon: events[index]['icon'] as IconData,
-                  color: events[index]['color'] as Color,
-                ),
-              ),
+              CosmicBackground(),
+              ParticleField(), // From previous example
             ],
           ),
         ),
+
+        ResponsivePadding(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            child: Column(
+              children: [
+                _buildTitle(isMobile),
+                const SizedBox(height: 40),
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: isMobile ? 1 : 3,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    childAspectRatio: 0.9,
+                  ),
+                  itemCount: events.length + 1,
+                  itemBuilder: (context, index) {
+                    if (index == events.length) {
+                      return CulturalEventCard();
+                    }
+                    return HolographicCard(
+                      image: events[index]['image'] as String,
+                      title: events[index]['name'] as String,
+                      date: 'Oct ${24 + index}th',
+                      price: '₹${1500 + index * 100}',
+                      gradient: _getEventGradient(index),
+                      details: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildInfoRow(
+                              Icons.person, events[index]['coordinator']),
+                          if ((events[index]['contact'] as String).isNotEmpty)
+                            _buildInfoRow(
+                                Icons.phone, events[index]['contact']),
+                          const SizedBox(height: 10),
+                          Text(events[index]['description'],
+                              style: GoogleFonts.orbitron(
+                                  color: Colors.white70, fontSize: 14)),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
+    );
+  }
+
+  LinearGradient _getEventGradient(int index) {
+    final gradients = [
+      const [Color(0xFFFE53BB), Color(0xFF09FBD3)],
+      const [Color(0xFFFFE259), Color(0xFFFFA751)],
+      const [Color(0xFF00F2FE), Color(0xFF4FACFE)],
+      const [Color(0xFF6A11CB), Color(0xFF2575FC)],
+    ];
+    return LinearGradient(
+      colors: gradients[index % gradients.length],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
     );
   }
 
@@ -195,22 +226,19 @@ class EventGrid extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         // Galactic Core Effect
-        Positioned(
-          child: AnimatedGalaxyCore(),
-        ),
+         AnimatedGalaxyCore(),
 
         // Title Text
         ShaderMask(
           blendMode: BlendMode.srcIn,
           shaderCallback: (bounds) => const LinearGradient(
-            colors: [Colors.cyanAccent, Colors.purpleAccent],
+            colors: [Color(0xFF00F2FE), Color(0xFFFE53BB)],
             stops: [0.3, 0.7],
           ).createShader(bounds),
           child: Text(
             'EVENTRONIX',
-            style: TextStyle(
+            style: GoogleFonts.orbitron(
               fontSize: isMobile ? 42 : 62,
-              fontFamily: 'Orbitron',
               fontWeight: FontWeight.w900,
               letterSpacing: 4,
               shadows: [
@@ -231,13 +259,205 @@ class EventGrid extends StatelessWidget {
         Positioned.fill(
           child: ParticleBurst(
             particleCount: 30,
-            baseColor: Colors.cyanAccent,
+            baseColor: const Color(0xFF09FBD3),
           ),
         ),
       ],
     );
   }
+
+  Widget _buildInfoRow(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white70, size: 18),
+          const SizedBox(width: 10),
+          Text(
+            text,
+            style: GoogleFonts.orbitron(
+                color: Colors.white70, fontSize: 16),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
+// Modified HolographicCard from previous example
+class HolographicCard extends StatefulWidget {
+  final String image;
+  final String title;
+  final String date;
+  final String price;
+  final LinearGradient gradient;
+  final Widget details;
+
+  const HolographicCard({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.date,
+    required this.price,
+    required this.gradient,
+    required this.details,
+  });
+
+  @override
+  State<HolographicCard> createState() => _HolographicCardState();
+}
+
+class _HolographicCardState extends State<HolographicCard> 
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  final _random = Random();
+  double _xOffset = 0;
+  double _yOffset = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 6),
+    )..repeat();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onHover: (event) {
+        setState(() {
+          _xOffset = (event.localPosition.dx - 150) / 30;
+          _yOffset = (event.localPosition.dy - 200) / 30;
+        });
+      },
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          final time = DateTime.now().millisecondsSinceEpoch / 1000;
+          final glowColor = Color.lerp(
+            widget.gradient.colors[0],
+            widget.gradient.colors[1],
+            (sin(time * 2) + 1) / 2,
+          )!;
+          
+          return Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001)
+              ..rotateX(_yOffset * 0.0174533)
+              ..rotateY(_xOffset * 0.0174533),
+            alignment: FractionalOffset.center,
+            child: CyberContainer(
+              child: Stack(
+                children: [
+                  Image.asset(
+                    widget.image,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withOpacity(0.7),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: GoogleFonts.orbitron(
+                            fontSize: 24,
+                            color: Colors.white,
+                            letterSpacing: 2,
+                            shadows: [
+                              Shadow(
+                                color: glowColor,
+                                blurRadius: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        widget.details,
+                        const SizedBox(height: 15),
+                        Row(
+                          children: [
+                            Icon(Icons.calendar_today, 
+                              color: glowColor, size: 16),
+                            const SizedBox(width: 8),
+                            Text(widget.date,
+                                style: TextStyle(color: glowColor)),
+                            const Spacer(),
+                            CyberButton(
+                              onPressed: () => _showRegistrationDialog(context),
+                              label: 'REGISTER NOW',
+                              glowColor: glowColor,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showRegistrationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        child: CyberContainer(
+       
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("Event Registration",
+                  style: GoogleFonts.orbitron(
+                      color: Colors.white, fontSize: 20)),
+              const SizedBox(height: 20),
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Enter Tech ID',
+                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(color: Colors.white70),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 20),
+              CyberButton(
+                onPressed: () => Navigator.pop(context),
+                label: 'CONFIRM',
+                glowColor: const Color(0xFF09FBD3),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Retain all previous helper classes (ParticleField, GlassContainer, 
+// NeonButton, AnimatedGalaxyCore, etc.) from original futuristic example
+// Ensure all fonts are set to Orbitron/orbitron via GoogleFonts
 
 // Cosmic Background Implementation
 class CosmicBackground extends StatefulWidget {
@@ -642,7 +862,7 @@ class _EventCardState extends State<_EventCard>
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 14,
                         height: 1.4,
-                        fontFamily: 'Exo2',
+                        fontFamily: 'orbitron',
                       ),
                     ),
                     const Spacer(),
@@ -703,7 +923,7 @@ class _EventCardState extends State<_EventCard>
             style: TextStyle(
               color: Colors.white.withOpacity(0.9),
               fontSize: 16,
-              fontFamily: 'Exo2',
+              fontFamily: 'orbitron',
             ),
           ),
         ],

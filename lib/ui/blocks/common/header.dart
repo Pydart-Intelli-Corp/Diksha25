@@ -10,7 +10,6 @@ import 'package:flutter_website/router.dart';
 import 'package:flutter_website/ui/blocks/header%20contents/careers.dart';
 import 'package:flutter_website/ui/blocks/header%20contents/insights.dart';
 
-import 'package:flutter_website/ui/blocks/header%20contents/whoweare.dart';
 import 'package:flutter_website/widgets/buttons/loading_button.dart';
 import 'package:flutter_website/widgets/buttons/text_hover_button.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -142,11 +141,7 @@ class _HeaderState extends State<Header> {
 
   Widget _buildDropdownContent(String dropdown) {
     switch (dropdown) {
-      case 'whoweare':
-        return WhoWeAreContent(
-          onItemPressed: _hideDropdown,
-          openUrl: openUrl,
-        );
+   
       // case 'ourservices':
       //   return OurServices(
       //     onItemPressed: _hideDropdown,
@@ -336,15 +331,15 @@ class _HeaderState extends State<Header> {
               Navigator.pushReplacementNamed(context, Routes.home);
             },
           ),
-          ListTile(
-            title: const Text('Who we are'),
-            trailing: const Icon(Icons.arrow_forward),
-            onTap: () {
-              Provider.of<NavigationProvider>(context, listen: false).active =
-                  'whoweare';
-              Get.toNamed(Routes.whoweare);
-            },
-          ),
+          // ListTile(
+          //   title: const Text('Who we are'),
+          //   trailing: const Icon(Icons.arrow_forward),
+          //   onTap: () {
+          //     Provider.of<NavigationProvider>(context, listen: false).active =
+          //         'whoweare';
+          //     Get.toNamed(Routes.whoweare);
+          //   },
+          // ),
           ListTile(
             title: const Text('Our services'),
             trailing: const Icon(Icons.arrow_forward),
