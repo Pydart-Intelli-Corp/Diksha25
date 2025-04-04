@@ -9,13 +9,14 @@ class EventGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
     // ... [Keep the existing events list data unchanged] ...
- final List<Map<String, dynamic>> events = [
+    final List<Map<String, dynamic>> events = [
       {
         'name': 'Robo War',
         'coordinator': 'Kavya',
         'contact': '+91 98765 43210',
-        'image': 'assets/images/robo-war.webp',
-        'description': 'Epic robotic battles in neon-lit arenas. Last bot standing wins!',
+        'image': 'assets/images/diksha/robowar.webp',
+        'description':
+            'Epic robotic battles in neon-lit arenas. Last bot standing wins!',
         'icon': Icons.rocket_launch,
         'color': Colors.cyan,
       },
@@ -23,7 +24,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Line Robot',
         'coordinator': 'Ardar',
         'contact': '+91 98765 43211',
-        'image': 'assets/images/line-robot.webp',
+        'image': 'assets/images/diksha/linefollower.webp',
         'description': 'Navigate the course with precision and speed!',
         'icon': Icons.directions_car,
         'color': Colors.orange,
@@ -32,7 +33,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Robo Tug of War',
         'coordinator': 'Heera',
         'contact': '+91 98765 43212',
-        'image': 'assets/images/robo-tug.webp',
+        'image': 'assets/images/diksha/tugofwar.webp',
         'description': 'Team-based contest of strength and strategy.',
         'icon': Icons.handshake,
         'color': Colors.redAccent,
@@ -41,7 +42,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Tech Quiz',
         'coordinator': 'Navaneeth',
         'contact': '+91 98765 43213',
-        'image': 'assets/images/tech-quiz.webp',
+        'image': 'assets/images/diksha/quiz.webp',
         'description': 'Challenge your knowledge in tech and innovation!',
         'icon': Icons.question_mark,
         'color': Colors.blue,
@@ -50,7 +51,7 @@ class EventGrid extends StatelessWidget {
         'name': 'GPT Prompt Competition',
         'coordinator': 'Aaesha',
         'contact': '+91 98765 43214',
-        'image': 'assets/images/gpt-prompt.webp',
+        'image': 'assets/images/diksha/gpt.webp',
         'description': 'Craft the most creative AI prompts.',
         'icon': Icons.smart_toy,
         'color': Colors.green,
@@ -59,7 +60,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Colour Mixing',
         'coordinator': 'Nandkishor',
         'contact': '+91 98765 43215',
-        'image': 'assets/images/colour-mixing.webp',
+        'image': 'assets/images/diksha/color.webp',
         'description': 'Blend hues and create visual masterpieces.',
         'icon': Icons.color_lens,
         'color': Colors.pinkAccent,
@@ -68,7 +69,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Poster Making Competition',
         'coordinator': 'Nijin',
         'contact': '+91 98765 43216',
-        'image': 'assets/images/poster-making.webp',
+        'image': 'assets/images/diksha/poster.webp',
         'description': 'Design captivating posters with innovative ideas.',
         'icon': Icons.brush,
         'color': Colors.deepPurple,
@@ -77,8 +78,9 @@ class EventGrid extends StatelessWidget {
         'name': 'Circuit Debugging',
         'coordinator': 'Abhinand ECE',
         'contact': '+91 98765 43217',
-        'image': 'assets/images/circuit-debugging.webp',
-        'description': 'Troubleshoot and fix electronic circuits under pressure.',
+        'image': 'assets/images/diksha/debugging.webp',
+        'description':
+            'Troubleshoot and fix electronic circuits under pressure.',
         'icon': Icons.memory,
         'color': Colors.teal,
       },
@@ -86,7 +88,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Project Presentation',
         'coordinator': 'Hiba',
         'contact': '+91 98765 43218',
-        'image': 'assets/images/project-presentation.webp',
+        'image': 'assets/images/diksha/project.webp',
         'description': 'Showcase your project and impress the judges.',
         'icon': Icons.present_to_all,
         'color': Colors.indigo,
@@ -95,7 +97,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Meme Making Competition',
         'coordinator': 'Hiba',
         'contact': '+91 98765 43219',
-        'image': 'assets/images/meme-making.webp',
+        'image': 'assets/images/diksha/meme.webp',
         'description': 'Create viral memes and entertain the crowd.',
         'icon': Icons.emoji_emotions,
         'color': Colors.yellow,
@@ -104,7 +106,7 @@ class EventGrid extends StatelessWidget {
         'name': 'Coding Competition',
         'coordinator': 'Raniya',
         'contact': '+91 98765 43220',
-        'image': 'assets/images/coding-competition.webp',
+        'image': 'assets/images/diksha/coding.webp',
         'description': 'Solve problems and code under pressure.',
         'icon': Icons.code,
         'color': Colors.lightBlue,
@@ -113,7 +115,7 @@ class EventGrid extends StatelessWidget {
         'name': 'CAD',
         'coordinator': 'Abhinand PR',
         'contact': '+91 98765 43221',
-        'image': 'assets/images/cad.webp',
+        'image': 'assets/images/diksha/autocad.webp',
         'description': 'Design and innovate using computer-aided design.',
         'icon': Icons.design_services,
         'color': Colors.lime,
@@ -122,16 +124,16 @@ class EventGrid extends StatelessWidget {
         'name': 'Circuit Decoding',
         'coordinator': 'Dheeraj',
         'contact': '+91 98765 43222',
-        'image': 'assets/images/circuit-decoding.webp',
+        'image': 'assets/images/diksha/decode.webp',
         'description': 'Decode and understand complex circuit diagrams.',
         'icon': Icons.electrical_services,
         'color': Colors.amber,
       },
       {
-        'name': 'Ideathony',
+        'name': 'Ideathon',
         'coordinator': 'Amal',
         'contact': '+91 98765 43223',
-        'image': 'assets/images/ideathony.webp',
+        'image': 'assets/images/diksha/idea.webp',
         'description': 'Pitch your groundbreaking ideas in a dynamic forum.',
         'icon': Icons.lightbulb,
         'color': Colors.deepOrange,
@@ -143,17 +145,17 @@ class EventGrid extends StatelessWidget {
         Positioned.fill(
           child: CosmicBackground(),
         ),
-        
+
         Container(
           padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-          decoration:  BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFF00081D).withOpacity(0.9),
-                Color(0xFF0A0025).withOpacity(0.9),
-                Color(0xFF1A0030).withOpacity(0.9),
+                Color.fromARGB(210, 28, 0, 37),
+                Color.fromARGB(222, 22, 0, 29),
+                Color.fromARGB(255, 0, 37, 17)
               ],
             ),
           ),
@@ -171,15 +173,15 @@ class EventGrid extends StatelessWidget {
                   childAspectRatio: 0.9,
                 ),
                 itemCount: events.length,
-                 itemBuilder: (context, index) => _EventCard(
-              eventName: events[index]['name'] as String,
-              coordinator: events[index]['coordinator'] as String,
-              contact: events[index]['contact'] as String,
-              image: events[index]['image'] as String,
-              description: events[index]['description'] as String,
-              icon: events[index]['icon'] as IconData,
-              color: events[index]['color'] as Color,
-            ),
+                itemBuilder: (context, index) => _EventCard(
+                  eventName: events[index]['name'] as String,
+                  coordinator: events[index]['coordinator'] as String,
+                  contact: events[index]['contact'] as String,
+                  image: events[index]['image'] as String,
+                  description: events[index]['description'] as String,
+                  icon: events[index]['icon'] as IconData,
+                  color: events[index]['color'] as Color,
+                ),
               ),
             ],
           ),
@@ -196,7 +198,7 @@ class EventGrid extends StatelessWidget {
         Positioned(
           child: AnimatedGalaxyCore(),
         ),
-        
+
         // Title Text
         ShaderMask(
           blendMode: BlendMode.srcIn,
@@ -213,18 +215,18 @@ class EventGrid extends StatelessWidget {
               letterSpacing: 4,
               shadows: [
                 Shadow(
-                  color: Colors.cyanAccent.withOpacity(0.5),
-                  blurRadius: 20,
-                  offset: Offset(0, 0)),
+                    color: Colors.cyanAccent.withOpacity(0.5),
+                    blurRadius: 20,
+                    offset: Offset(0, 0)),
                 Shadow(
-                  color: Colors.purpleAccent.withOpacity(0.5),
-                  blurRadius: 40,
-                  offset: Offset(0, 0)),
+                    color: Colors.purpleAccent.withOpacity(0.5),
+                    blurRadius: 40,
+                    offset: Offset(0, 0)),
               ],
             ),
           ),
         ),
-        
+
         // Particle Burst
         Positioned.fill(
           child: ParticleBurst(
@@ -256,7 +258,7 @@ class _CosmicBackgroundState extends State<CosmicBackground>
       vsync: this,
       duration: Duration(seconds: 30),
     )..repeat();
-    
+
     // Initialize stars
     for (int i = 0; i < 200; i++) {
       _stars.add(Star(
@@ -465,12 +467,12 @@ class _ParticleBurstPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    
+
     for (final particle in particles) {
       final distance = progress * particle.speed * 50;
       final x = center.dx + cos(particle.angle) * distance;
       final y = center.dy + sin(particle.angle) * distance;
-      
+
       final paint = Paint()
         ..color = particle.color
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, particle.size * 2);
@@ -589,8 +591,8 @@ class _EventCardState extends State<_EventCard>
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Colors.black.withOpacity(0.7),
-                        Colors.black.withOpacity(0.9),
+                        const Color.fromARGB(206, 0, 0, 0),
+                        const Color.fromARGB(0, 0, 0, 0)
                       ],
                     ),
                   ),
@@ -599,7 +601,7 @@ class _EventCardState extends State<_EventCard>
               // Glassmorphic Effect
               Positioned.fill(
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
                   child: Container(),
                 ),
               ),
@@ -626,7 +628,8 @@ class _EventCardState extends State<_EventCard>
                                     widget.color,
                                     widget.color.withOpacity(0.7),
                                   ],
-                                ).createShader(const Rect.fromLTWH(0, 0, 200, 50)),
+                                ).createShader(
+                                    const Rect.fromLTWH(0, 0, 200, 50)),
                             ),
                           ),
                         ),
