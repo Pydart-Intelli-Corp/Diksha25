@@ -78,6 +78,7 @@ class InvestorInquiryDialogState extends State<InvestorInquiryDialog>
                         const Text(
                           "Invest in Freestyle",
                           style: TextStyle(
+                fontFamily: "Orbitron",
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -86,7 +87,8 @@ class InvestorInquiryDialogState extends State<InvestorInquiryDialog>
                         const SizedBox(height: 16),
                         const Text(
                           "Freestyle is a next-gen salon and beauty booking platform combined with an e-commerce marketplace for beauty products. Be a part of this growing industry!",
-                          style: TextStyle(color: Colors.white70),
+                          style: TextStyle(
+                fontFamily: "Orbitron",color: Colors.white70),
                         ),
                         const SizedBox(height: 20),
                         _buildTextField(

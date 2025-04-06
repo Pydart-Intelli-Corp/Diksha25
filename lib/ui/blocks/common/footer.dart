@@ -73,6 +73,7 @@ class Footer extends StatelessWidget {
           Text(
             '© 2025 Pydart Intelli Corp Pvt Ltd. All Rights Reserved',
             style: TextStyle(
+                fontFamily: "Orbitron",
               color: Colors.white54,
               fontSize: 12,
               letterSpacing: 1,
@@ -109,6 +110,7 @@ class Footer extends StatelessWidget {
             child: Text(
               "Innovate. Integrate. Inspire.",
               style: TextStyle(
+                fontFamily: "Orbitron",
                 color: Colors.white70,
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -120,6 +122,7 @@ class Footer extends StatelessWidget {
             child: Text(
               "--------------- Follow us on ---------------",
               style: TextStyle(
+                fontFamily: "Orbitron",
                 color: Colors.white70,
                 fontSize: 14,
                 fontStyle: FontStyle.italic,
@@ -206,7 +209,8 @@ class Footer extends StatelessWidget {
             },
             child: const Text(
               "Join Our Team",
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                fontFamily: "Orbitron",color: Colors.white),
             ),
           ),
         ],
@@ -262,7 +266,8 @@ class Footer extends StatelessWidget {
           const SizedBox(height: 15),
           const Text(
             "Subscribe to our newsletter:",
-            style: TextStyle(color: Colors.white70, fontSize: 14),
+            style: TextStyle(
+                fontFamily: "Orbitron",color: Colors.white70, fontSize: 14),
           ),
           const SizedBox(height: 20),
           SizedBox(
@@ -323,7 +328,8 @@ class Footer extends StatelessWidget {
             onPressed: () {},
             child: const Text(
               "Investment Enquiry",
-              style: TextStyle(color: Color.fromARGB(181, 255, 255, 255)),
+              style: TextStyle(
+                fontFamily: "Orbitron",color: Color.fromARGB(181, 255, 255, 255)),
             ),
           ),
         ],

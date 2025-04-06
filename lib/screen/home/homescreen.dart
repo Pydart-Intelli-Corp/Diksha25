@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_website/components/colors.dart';
-import 'package:flutter_website/screen/Home/blocks/block2.dart';
+
+import 'package:flutter_website/screen/Home/blocks/people.dart' show PeopleBlock;
+import 'package:flutter_website/screen/Home/blocks/introBlock.dart';
+
 import 'package:flutter_website/screen/home/blocks/HeaderBlock.dart';
 
 import 'package:flutter_website/screen/home/blocks/block1.dart'
@@ -63,10 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _precacheAssets() async {
-    await precacheImage(
-        const AssetImage('assets/images/others/whoweare.png'), context);
-    await precacheImage(const AssetImage('assets/icons/whoweare.png'), context);
-    setState(() => _isLoaded = true);
+    // await precacheImage(
+    //     const AssetImage('assets/images/others/whoweare.png'), context);
+    // await precacheImage(const AssetImage('assets/icons/whoweare.png'), context);
+    // setState(() => _isLoaded = true);
   }
 
   @override
@@ -118,6 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Container(
                         
                             child: HeaderBlock(),
+
+
                           ),
                         ),
                       ),
@@ -152,7 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             children: [TechFestHero(),
-            EventGrid()
+            IntroBlock(),
+          PeopleBlock()
             ],
           ),
         ),

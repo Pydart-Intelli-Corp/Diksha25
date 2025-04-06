@@ -58,41 +58,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/
+
     - assets/images/
-    - assets/images/embedded/
-    - assets/images/insights/
-    - assets/images/others/
-    - assets/images/services/
-    - assets/images/team/
-    - assets/images/career/
+
     - assets/images/diksha/
     
-    - assets/frames/
+
     - assets/logos/
     - assets/logos/diksha/
-    - assets/logos/insights/
+
     - assets/videos/
     - assets/videos/diksha/
   fonts:
-    - family: Google Sans
+    - family: Orbitron
       fonts:
-        - asset: assets/fonts/product_sans_regular.ttf
-        - asset: assets/fonts/product_sans_bold.ttf
-          weight: 700
-        - asset: assets/fonts/product_sans_italic.ttf
-          style: italic
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/Montserrat-Black.ttf
-        - asset: assets/fonts/Montserrat-Regular.ttf
-        - asset: assets/fonts/Montserrat-Bold.ttf
-
-
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/roboto_regular.ttf
-        - asset: assets/fonts/roboto_bold.ttf
-          weight: 700
-        - asset: assets/fonts/roboto_italic.ttf
-          style: italic
+        - asset: assets/fonts/orbitron-black.otf
+       

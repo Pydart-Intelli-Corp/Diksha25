@@ -81,6 +81,7 @@ class LoadingButtonState extends State<LoadingButton> {
                     : Text(
                         widget.text,
                         style: TextStyle(
+                fontFamily: "Orbitron",
                           fontSize: widget.textSize,
                           fontWeight: widget.textWeight,
                           color: widget.textColor,

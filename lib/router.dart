@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_website/screen/Home/Homescreen.dart';
-import 'package:flutter_website/screen/Home/culturalscreen.dart';
+import 'package:flutter_website/screen/culturalscreen.dart';
+import 'package:flutter_website/screen/technicalScreen.dart';
 
 
 import 'package:get/get.dart';
@@ -53,6 +54,7 @@ class CustomSlideTransition extends CustomTransition {
 class Routes {
   static const String home = '/';
   static const String culturalevents = '/cultural-events';
+   static const String TechnicalEvents = '/technical-events';
 
 
   static final List<GetPage> pages = [
@@ -65,6 +67,12 @@ class Routes {
      GetPage(
       name: culturalevents,
       page: () => CulturalEventsScreen(),
+      customTransition: CustomSlideTransition(),
+      transitionDuration: const Duration(milliseconds: 500),
+    ),
+       GetPage(
+      name: TechnicalEvents,
+      page: () => TechnicalEventsScreen(),
       customTransition: CustomSlideTransition(),
       transitionDuration: const Duration(milliseconds: 500),
     ),

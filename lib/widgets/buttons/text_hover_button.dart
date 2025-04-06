@@ -61,6 +61,7 @@ class _TextHoverButtonState extends State<TextHoverButton> {
                 Text(
                   widget.label,
                   style: TextStyle(
+                fontFamily: "Orbitron",
                     color: widget.color,
                     fontSize: 15,
                     fontWeight: FontWeight.w200,

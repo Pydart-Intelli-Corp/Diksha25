@@ -19,6 +19,7 @@ class _TechFestHeroState extends State<TechFestHero>
   final List<bool> _letterHovered =
       List.generate('DIKSHAVERSE'.length, (_) => false);
   final List<AnimationController> _letterControllers = [];
+final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -109,17 +110,19 @@ class _TechFestHeroState extends State<TechFestHero>
 
             // Optionally, you can compute gradient colors if you want to blend the logo.
             // For a logo, you might simply change opacity or add a shadow.
-            return Transform(
-              transform: transform,
-              alignment: Alignment.center,
-              child: Image.asset(
-                'assets/logos/diksha/dikshalogoyellownoletter.png', // Update with your logo path
-                width: isMobile ? 40 : 80,
-                height: isMobile ? 40 : 80,
-                // If you want to apply color effects, you can use a ColorFiltered widget or similar.
-              ),
-            );
-          },
+      return Transform.translate(
+        offset: const Offset(0, -5), // ← move up by 10px
+        child: Transform(
+          transform: transform,
+          alignment: Alignment.center,
+          child: Image.asset(
+            'assets/logos/diksha/dikshalogoyellownoletter.png',
+            width: isMobile ? 50 : 90,
+            height: isMobile ? 40 : 80,
+          ),
+        ),
+      );
+    },
         ),
       );
     } else {
@@ -152,7 +155,8 @@ class _TechFestHeroState extends State<TechFestHero>
               alignment: Alignment.center,
               child: Text(
                 letter,
-                style: GoogleFonts.orbitron(
+                style: TextStyle(
+                fontFamily: "Orbitron",
                   fontSize: isMobile ? 40 : 80,
                   fontWeight: FontWeight.w900,
                   foreground: Paint()
@@ -287,7 +291,8 @@ class _TechFestHeroState extends State<TechFestHero>
                 children: [
                   Text(
                     'INTO THE',
-                    style: GoogleFonts.orbitron(
+                    style: TextStyle(
+                fontFamily: "Orbitron",
                       fontSize: isMobile ? 24 : 36,
                       fontWeight: FontWeight.w300,
                       color: Colors.white.withOpacity(0.8),
@@ -305,48 +310,9 @@ class _TechFestHeroState extends State<TechFestHero>
                         .toList(),
                   ),
                   const SizedBox(height: 20),
-                  AnimatedBuilder(
-                    animation: _gridController,
-                    builder: (context, child) {
-                      final double animationValue = _gridController.value;
-                      final Matrix4 transform = Matrix4.identity()
-                        ..rotateZ(0.02 * sin(animationValue * 2 * pi));
-                      return Transform(
-                        transform: transform,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Technical and Cultural Fest',
-                          style: GoogleFonts.orbitron(
-                            fontSize: isMobile ? 16 : 24,
-                            fontWeight: FontWeight.bold,
-                            foreground: Paint()
-                              ..shader = LinearGradient(
-                                colors: [
-                                  Colors.orangeAccent,
-                                  Colors.deepPurpleAccent,
-                                  Colors.cyan
-                                ],
-                                stops: const [0.0, 0.5, 1.0],
-                                transform:
-                                    GradientRotation(animationValue * 2 * pi),
-                              ).createShader(
-                                  const Rect.fromLTWH(0, 0, 200, 70)),
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withOpacity(0.3),
-                                blurRadius: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+_AnimatedSubtitle(),
                   SizedBox(height: size.height * 0.04),
-                  _HolographicButton(
-                    onPressed: () {},
-                    width: isMobile ? size.width * 0.6 : 250,
-                  ),
+                
                 ],
               ),
             ),
@@ -440,7 +406,8 @@ class _HolographicButtonState extends State<_HolographicButton>
                   Center(
                    child: Text(
                       'EXPLORE NOW',
-                      style: GoogleFonts.orbitron(
+                      style: TextStyle(
+                fontFamily: "Orbitron",
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -499,4 +466,95 @@ class _AnimatedGridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+class _AnimatedSubtitle extends StatefulWidget {
+  @override
+  __AnimatedSubtitleState createState() => __AnimatedSubtitleState();
+}
+
+class __AnimatedSubtitleState extends State<_AnimatedSubtitle>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _glitchController;
+  final Random _random = Random();
+  double _offsetX = 0;
+  double _offsetY = 0;
+  double _redOpacity = 0;
+  double _blueOpacity = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _glitchController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 80),
+    )..addListener(() {
+        setState(() {
+          _offsetX = (_random.nextDouble() - 0.5) * 4;
+          _offsetY = (_random.nextDouble() - 0.5) * 2;
+          _redOpacity = _random.nextDouble() > 0.9 ? 1.0 : 0.0;
+          _blueOpacity = _random.nextDouble() > 0.9 ? 1.0 : 0.0;
+        });
+      })..repeat();
+  }
+
+  @override
+  void dispose() {
+    _glitchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Transform.translate(
+          offset: Offset(_offsetX, _offsetY),
+          child: Text(
+            "TECHNICAL AND CULTURAL FEST",
+            style: TextStyle(
+                fontFamily: "Orbitron",
+              fontSize: 18,
+              color: Colors.white,
+              letterSpacing: 4,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Transform.translate(
+          offset: Offset(_offsetX + 2, _offsetY - 1),
+          child: Opacity(
+            opacity: _redOpacity,
+            child: Text(
+              "TECHNICAL AND CULTURAL FEST",
+              style: TextStyle(
+               
+                fontFamily: "Orbitron",
+                fontSize: 18,
+                color: Colors.red,
+                letterSpacing: 4,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Transform.translate(
+          offset: Offset(_offsetX - 2, _offsetY + 1),
+          child: Opacity(
+            opacity: _blueOpacity,
+            child: Text(
+              "TECHNICAL AND CULTURAL FEST",
+              style: TextStyle(
+                fontFamily: "Orbitron",
+                fontSize: 18,
+                color: Colors.blue,
+                letterSpacing: 4,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
