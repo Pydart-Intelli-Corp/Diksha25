@@ -9,7 +9,7 @@ extension ColorParsing on Color {
 
 class AppColors {
   static const Color primary = Color(0xFF2A63FE);
-    static const Color pydart = Color.fromARGB(255, 0, 179, 171); // Your brand primary
+    static const Color diksha = Color.fromARGB(255, 110, 12, 192); // Your brand primary
   static const Color secondary = Color(0xFF8B4DFF); // Your brand secondary
   static const Color accent = Color(0xFF00C9A7);
    static const Color deepBlue = Color(0xFF00172D);

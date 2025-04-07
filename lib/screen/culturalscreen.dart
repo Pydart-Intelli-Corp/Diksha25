@@ -3,10 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_website/screen/Home/cards/holographicCard.dart';
-import 'package:flutter_website/screen/Home/cards/holographicCardNoButton.dart';
 import 'package:flutter_website/screen/Home/particles/culturalParticles.dart';
 import 'dart:math';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter_website/ui/blocks/common/footer.dart';
+
+
 class CulturalEventsScreen extends StatelessWidget {
   const CulturalEventsScreen({super.key});
 
@@ -19,18 +21,20 @@ class CulturalEventsScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-         Container(
+          Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 17, 0, 35)],
+                colors: [
+                  Color.fromARGB(255, 0, 0, 0),
+                  Color.fromARGB(255, 17, 0, 35)
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
             ),
             child: const ParticleField(),
           ),
-          
-            CustomScrollView(
+          CustomScrollView(
             slivers: [
               SliverAppBar(
                 expandedHeight: isMobile ? 200 : 300,
@@ -45,9 +49,11 @@ class CulturalEventsScreen extends StatelessWidget {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: 'DIKSHA\'25'.split('').map((char) => 
-                                _AnimatedLetter(character: char)
-                              ).toList(),
+                              children: 'DIKSHA\'25'
+                                  .split('')
+                                  .map((char) =>
+                                      _AnimatedLetter(character: char))
+                                  .toList(),
                             ),
                             const SizedBox(height: 15),
                             _AnimatedSubtitle(),
@@ -62,77 +68,96 @@ class CulturalEventsScreen extends StatelessWidget {
                 child: ResponsivePadding(
                   child: SectionHeader(
                     title: "PROSHOWS",
-                    gradient: const [Color.fromARGB(255, 229, 255, 0), Color.fromARGB(255, 3, 67, 56)],
+                    gradient: const [
+                      Color.fromARGB(255, 229, 255, 0),
+                      Color.fromARGB(255, 3, 67, 56)
+                    ],
                   ),
                 ),
               ),
               SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 1 : isTablet ? 2 : 3,
+                  crossAxisCount: isMobile
+                      ? 1
+                      : isTablet
+                          ? 2
+                          : 3,
                   mainAxisExtent: isMobile ? 400 : 450,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 30,
                 ),
                 delegate: SliverChildListDelegate([
                   const HolographicCard(
-                    image: 'assets/images/diksha/fejo.jpg',
-                    title: "FEJO LIVE",
-                    date: "April 12th",
-                    price: "₹2999", link: 'https://tiqr.events/e/PROSHOW-TICKETS-1119',
-                  ),
-                  const HolographicCard(
-                    image: 'assets/images/diksha/gabri.jpg',
-                    title: "GABRI LIVE",
-                    date: "April 12th",
-                    price: "₹3499",
-                    link: 'https://tiqr.events/e/PROSHOW-TICKETS-1119',
-                  ),
-                  const HolographicCard(
-                    image: 'assets/images/diksha/zeropause.jpg',
-                    title: "ZEROPAUSE LIVE",
-                    date: "April 11th",
-                    price: "₹2499",
-                    link: 'https://tiqr.events/e/PROSHOW-TICKETS-1119',
-                  ),
-                ]),
-              ),
-                 SliverToBoxAdapter(
-                child: ResponsivePadding(
-                  child: SectionHeader(
-                    title: "OTHER EVENTS",
-                    gradient: const [Color.fromARGB(255, 229, 255, 0), Color.fromARGB(255, 3, 67, 56)],
-                  ),
-                ),
-              ),
-              SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 1 : isTablet ? 2 : 3,
-                  mainAxisExtent: isMobile ? 400 : 450,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 30,
-                ),
-                delegate: SliverChildListDelegate([
-                  const HolographicCardNoButton(
-                    image: 'assets/images/diksha/fejo.jpg',
+                    image: 'assets/images/diksha/fejo.webp',
                     title: "FEJO LIVE",
                     date: "April 12th",
                     price: "₹2999",
+                    link: 'https://tiqr.events/e/PROSHOW-TICKETS-1119',
                   ),
-                  const HolographicCardNoButton(
-                    image: 'assets/images/diksha/gabri.jpg',
+                  const HolographicCard(
+                    image: 'assets/images/diksha/gabri.webp',
                     title: "GABRI LIVE",
                     date: "April 12th",
                     price: "₹3499",
+                    link: 'https://tiqr.events/e/PROSHOW-TICKETS-1119',
                   ),
-                  const HolographicCardNoButton(
-                    image: 'assets/images/diksha/zeropause.jpg',
+                  const HolographicCard(
+                    image: 'assets/images/diksha/zeropause.webp',
                     title: "ZEROPAUSE LIVE",
                     date: "April 11th",
                     price: "₹2499",
+                    link: 'https://tiqr.events/e/PROSHOW-TICKETS-1119',
                   ),
                 ]),
               ),
-              const SliverToBoxAdapter(child: SizedBox(height: 500)),
+              SliverToBoxAdapter(
+                child: ResponsivePadding(
+                  child: SectionHeader(
+                    title: "Other events will be update soon..",
+                    gradient: const [
+                      Color.fromARGB(255, 229, 255, 0),
+                      Color.fromARGB(255, 3, 67, 56)
+                    ],
+                  ),
+                ),
+              ),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isMobile
+                      ? 1
+                      : isTablet
+                          ? 2
+                          : 3,
+                  mainAxisExtent: isMobile ? 400 : 450,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 30,
+                ),
+                delegate: SliverChildListDelegate([
+                  // Uncomment and add cards when available
+                  // const HolographicCardNoButton(
+                  //   image: 'assets/images/diksha/fejo.webp',
+                  //   title: "FEJO LIVE",
+                  //   date: "April 12th",
+                  //   price: "₹2999",
+                  // ),
+                  // const HolographicCardNoButton(
+                  //   image: 'assets/images/diksha/gabri.webp',
+                  //   title: "GABRI LIVE",
+                  //   date: "April 12th",
+                  //   price: "₹3499",
+                  // ),
+                  // const HolographicCardNoButton(
+                  //   image: 'assets/images/diksha/zeropause.webp',
+                  //   title: "ZEROPAUSE LIVE",
+                  //   date: "April 11th",
+                  //   price: "₹2499",
+                  // ),
+                ]),
+              ),
+              // Optional spacing before footer
+              const SliverToBoxAdapter(child: SizedBox(height: 50)),
+              // Add the footer at the bottom
+              const SliverToBoxAdapter(child: FooterBlock()),
             ],
           ),
         ],
@@ -141,6 +166,7 @@ class CulturalEventsScreen extends StatelessWidget {
   }
 }
 
+// The rest of your animated widgets and other classes follow...
 
 class _AnimatedLetter extends StatefulWidget {
   final String character;
@@ -151,7 +177,7 @@ class _AnimatedLetter extends StatefulWidget {
   __AnimatedLetterState createState() => __AnimatedLetterState();
 }
 
-class __AnimatedLetterState extends State<_AnimatedLetter> 
+class __AnimatedLetterState extends State<_AnimatedLetter>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -165,11 +191,10 @@ class __AnimatedLetterState extends State<_AnimatedLetter>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    
+
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.4).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut)
-    );
-    
+        CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
+
     _colorAnimation = ColorTween(
       begin: const Color(0xFF6A48D7),
       end: const Color(0xFFE94560),
@@ -202,7 +227,7 @@ class __AnimatedLetterState extends State<_AnimatedLetter>
             child: Text(
               widget.character,
               style: TextStyle(
-                  fontFamily: 'Orbitron',
+                fontFamily: 'Orbitron',
                 fontSize: 42,
                 shadows: [
                   Shadow(
@@ -227,6 +252,7 @@ class __AnimatedLetterState extends State<_AnimatedLetter>
     );
   }
 }
+
 class _AnimatedSubtitle extends StatefulWidget {
   @override
   __AnimatedSubtitleState createState() => __AnimatedSubtitleState();
@@ -247,14 +273,16 @@ class __AnimatedSubtitleState extends State<_AnimatedSubtitle>
     _glitchController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 80),
-    )..addListener(() {
+    )
+      ..addListener(() {
         setState(() {
           _offsetX = (_random.nextDouble() - 0.5) * 4;
           _offsetY = (_random.nextDouble() - 0.5) * 2;
           _redOpacity = _random.nextDouble() > 0.9 ? 1.0 : 0.0;
           _blueOpacity = _random.nextDouble() > 0.9 ? 1.0 : 0.0;
         });
-      })..repeat();
+      })
+      ..repeat();
   }
 
   @override
@@ -273,7 +301,7 @@ class __AnimatedSubtitleState extends State<_AnimatedSubtitle>
           child: Text(
             "Cultural Events",
             style: TextStyle(
-                fontFamily: "Orbitron",
+              fontFamily: "Orbitron",
               fontSize: 18,
               color: Colors.white,
               letterSpacing: 4,
@@ -317,6 +345,7 @@ class __AnimatedSubtitleState extends State<_AnimatedSubtitle>
     );
   }
 }
+
 class _AnimatedGradientBackground extends StatefulWidget {
   const _AnimatedGradientBackground();
 
@@ -325,8 +354,8 @@ class _AnimatedGradientBackground extends StatefulWidget {
       __AnimatedGradientBackgroundState();
 }
 
-class __AnimatedGradientBackgroundState extends State<_AnimatedGradientBackground>
-    with TickerProviderStateMixin {
+class __AnimatedGradientBackgroundState
+    extends State<_AnimatedGradientBackground> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   // New controllers for image animation
@@ -387,7 +416,7 @@ class __AnimatedGradientBackgroundState extends State<_AnimatedGradientBackgroun
             return Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: const AssetImage('assets/images/diksha/cult.jpg'),
+                  image: const AssetImage('assets/images/diksha/cult.webp'),
                   fit: BoxFit.cover,
                   opacity: _imageOpacityAnimation.value,
                   alignment: _imageAlignmentAnimation.value,
@@ -421,6 +450,7 @@ class __AnimatedGradientBackgroundState extends State<_AnimatedGradientBackgroun
     );
   }
 }
+
 class SectionHeader extends StatelessWidget {
   final String title;
   final List<Color> gradient;
@@ -443,7 +473,7 @@ class SectionHeader extends StatelessWidget {
         ).createShader(bounds),
         child: Text(title,
             style: TextStyle(
-                fontFamily: "Orbitron",
+              fontFamily: "Orbitron",
               fontSize: isMobile ? 24 : 32,
               letterSpacing: 4,
               color: const Color.fromARGB(255, 226, 216, 15),
@@ -464,9 +494,13 @@ class ResponsivePadding extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: screenWidth > 1200 ? 100 : 
-                   screenWidth > 800 ? 60 : 
-                   screenWidth > 600 ? 40 : 20,
+        horizontal: screenWidth > 1200
+            ? 100
+            : screenWidth > 800
+                ? 60
+                : screenWidth > 600
+                    ? 40
+                    : 20,
         vertical: 20,
       ),
       child: child,

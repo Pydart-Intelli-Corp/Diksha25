@@ -1,244 +1,230 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_website/widgets/buttons/icon_hover_button.dart';
-
-
-import 'package:flutter_website/api/config.dart';
-
-
-import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_website/components/colors.dart';
+import 'package:flutter_website/core/extensions/color_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+class FooterBlock extends StatefulWidget {
+  const FooterBlock({super.key});
 
-class Footer extends StatelessWidget {
+  @override
+  State<FooterBlock> createState() => _FooterBlockState();
+}
 
-    final Color g1;
-  final Color g2;
-  const Footer({super.key, required this.g1, required this.g2});
+class _FooterBlockState extends State<FooterBlock> {
+  bool _isHovered = false;
+  final Map<String, bool> _hoverStates = {
+    'instagram': false,
+    'facebook': false,
+    'twitter': false,
+  };
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile =
-        ResponsiveBreakpoints.of(context).smallerThan(DESKTOP);
+    final isMobile = MediaQuery.of(context).size.width < 768;
 
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [
-            g1,
-            g2,
+            Colors.black.withOpacity(0.97),
+            Colors.black.withOpacity(0.95),
           ],
         ),
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 20 : 30,
-        vertical: 40,
-      ),
       child: Column(
         children: [
-          ResponsiveRowColumn(
-            layout: isMobile
-                ? ResponsiveRowColumnType.COLUMN
-                : ResponsiveRowColumnType.ROW,
-            columnSpacing: 30,
-            rowSpacing: 30,
-            rowMainAxisAlignment: MainAxisAlignment.spaceAround,
-            columnMainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ResponsiveRowColumnItem(
-                rowFit: FlexFit.tight,
-                child: _buildServicesSection(),
-              ),
-              ResponsiveRowColumnItem(
-                rowFit: FlexFit.tight,
-                child: _buildCareerSection(context),
-              ),
-              ResponsiveRowColumnItem(
-                rowFit: FlexFit.tight,
-                child: _buildEcommerceSection(),
-              ),
-              ResponsiveRowColumnItem(
-                rowFit: FlexFit.tight,
-                child: _buildContactSection(),
-              ),
-              ResponsiveRowColumnItem(child: _buildLogoSection()),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Text(
-            '© 2025 Pydart Intelli Corp Pvt Ltd. All Rights Reserved',
-            style: TextStyle(
-                fontFamily: "Orbitron",
-              color: Colors.white54,
-              fontSize: 12,
-              letterSpacing: 1,
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 60,
+              horizontal: isMobile ? 24 : 120,
             ),
+            child: isMobile ? _buildMobileLayout() : _buildDesktopLayout(),
           ),
+          _buildBottomBar(isMobile),
         ],
       ),
     );
   }
 
-  ResponsiveRowColumnItem _buildLogoSection() {
-    return ResponsiveRowColumnItem(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: SizedBox(
-  width: 200, // desired width
-  height: 100, // desired height
- child: SvgPicture.asset(
-  "assets/logos/pydart-logo.svg",
-  semanticsLabel: 'Pydart Logo',
-  fit: BoxFit.scaleDown,
-  allowDrawingOutsideViewBox: true,
-  color: null, // Ensures the original colors from the SVG are used.
-),
+  Widget _buildDesktopLayout() {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildLogoSection(),
+            _buildLinksSection(),
+            _buildContactSection(),
+          ],
+        ),
+        const SizedBox(height: 40),
+      ],
+    );
+  }
 
-),
+  Widget _buildMobileLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildLogoSection(),
+        const SizedBox(height: 40),
+        _buildLinksSection(),
+        const SizedBox(height: 40),
+        _buildContactSection(),
+        const SizedBox(height: 40),
+      ],
+    );
+  }
 
-          ),
-          const SizedBox(height: 20),
-          const Center(
-            child: Text(
-              "Innovate. Integrate. Inspire.",
+  Widget _buildLogoSection() {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: _isHovered
+              ? LinearGradient(
+                  colors: [
+                    AppColors.diksha.withOpacity(0.1),
+                    Colors.transparent
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              "assets/logos/diksha/dikshalogoyellow.png",
+              width: 180,
+              height: 180,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 20),
+            AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 300),
               style: TextStyle(
-                fontFamily: "Orbitron",
-                color: Colors.white70,
                 fontSize: 14,
-                fontStyle: FontStyle.italic,
+                color: Colors.white54,
+                fontWeight: _isHovered ? FontWeight.w600 : FontWeight.normal,
               ),
+              child: const Text("Technical and Cultural Fest"),
             ),
-          ),
-          const SizedBox(height: 20),
-          const Center(
-            child: Text(
-              "--------------- Follow us on ---------------",
-              style: TextStyle(
-                fontFamily: "Orbitron",
-                color: Colors.white70,
-                fontSize: 14,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconHoverButton(
-                    iconPath: "assets/logos/github-logo.png",
-                    onPressed: () => openUrl('https://twitter.com/flutterdev')),
-                IconHoverButton(
-                    iconPath: "assets/logos/linkedin.png",
-                    onPressed: () => openUrl('https://twitter.com/flutterdev')),
-                IconHoverButton(
-                    iconPath: "assets/logos/instagram.png",
-                    onPressed: () => openUrl('https://twitter.com/flutterdev')),
-                IconHoverButton(
-                    iconPath: "assets/logos/facebook.png",
-                    onPressed: () => openUrl('https://twitter.com/flutterdev')),
-                IconHoverButton(
-                    iconPath: "assets/logos/x.png",
-                    onPressed: () => openUrl('https://twitter.com/flutterdev')),
-                IconHoverButton(
-                    iconPath: "assets/logos/youtube.png",
-                    onPressed: () => openUrl('https://twitter.com/flutterdev')),
-              ],
-            ),
-          ),
-        ],
+            const SizedBox(height: 30),
+            _buildPoweredBy(),
+          ],
+        ),
       ),
     );
   }
 
-  ResponsiveRowColumnItem _buildServicesSection() {
-    return ResponsiveRowColumnItem(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionTitle("Our Services"),
-          _buildFooterLink("Custom Software Development", Icons.code, () {}),
-          _buildFooterLink(
-              "IoT & Hardware Solutions", Icons.settings_input_antenna, () {}),
-          _buildFooterLink("AI/ML Integration", Icons.smart_toy, () {}),
-          _buildFooterLink("Cloud Solutions", Icons.cloud, () {}),
-          _buildFooterLink("E-commerce Platforms", Icons.shopping_cart, () {}),
-          _buildFooterLink("Mobile Applications", Icons.phone_android, () {}),
-        ],
-      ),
-    );
-  }
-
-  ResponsiveRowColumnItem _buildCareerSection(BuildContext context) {
-    return ResponsiveRowColumnItem(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionTitle("Careers"),
-          _buildFooterLink("Current Openings", Icons.work_outline, () {
-            openUrl("$domainurl/career"); // Navigate to CareerScreen
-          }),
-          _buildFooterLink("Internship Programs", Icons.school, () {
-            openUrl("$domainurl/career");
-          }),
-          _buildFooterLink("Employee Benefits", Icons.card_giftcard, () {
-            openUrl("$domainurl/career");
-          }),
-          _buildFooterLink("Tech Stack", Icons.memory, () {
-            openUrl("$domainurl/career");
-          }),
-          const SizedBox(height: 30),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(181, 56, 134, 49),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-            onPressed: () {
-              openUrl("$apiUrl/career");
-            },
-            child: const Text(
-              "Join Our Team",
-              style: TextStyle(
-                fontFamily: "Orbitron",color: Colors.white),
-            ),
+  Widget _buildPoweredBy() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Powered by",
+          style: TextStyle(
+            color: Colors.white54,
+            fontSize: 12,
+            letterSpacing: 1.2,
           ),
-        ],
+        ),
+        const SizedBox(height: 8),
+        AnimatedOpacity(
+          duration: const Duration(milliseconds: 300),
+          opacity: _isHovered ? 1 : 0.8,
+          child: Image.asset(
+            "assets/logos/pydart.png",
+            width: 200,
+            height: 150,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLinksSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle("Quick Links"),
+        const SizedBox(height: 20),
+        _buildAnimatedLink("Technical Events", Icons.code,
+            "https://www.dikshaiet.com/technical-events"),
+        _buildAnimatedLink("Cultural Events", Icons.celebration,
+            "https://www.dikshaiet.com/cultural-events"),
+        _buildAnimatedLink("Event Location", Icons.location_on,
+            "https://maps.app.goo.gl/Uv235erdEiFE4trC7?g_st=awb"),
+      ],
+    );
+  }
+
+  Widget _buildContactSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildSectionTitle("Contact Us"),
+        const SizedBox(height: 20),
+        _buildContactItem(Icons.email, "diksha25iet@gmail.com",
+            () => _launchUrl('mailto:diksha25iet@gmail.com')),
+        _buildContactItem(Icons.phone, "+91 73061 24112",
+            () => _launchUrl('tel:+917306124112')),
+        _buildContactItem(Icons.language, "www.dikshaiet.com",
+            () => _launchUrl('https://dikshaiet.com')),
+      ],
+    );
+  }
+
+  Widget _buildSectionTitle(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: AppColors.diksha,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1.2,
       ),
     );
   }
 
-  Widget _buildFooterLink(String text, IconData icon, VoidCallback onTap) {
-    return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 8), // Increases hover width
+  Widget _buildAnimatedLink(String text, IconData icon, String url) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: onTap,
-        hoverColor: const Color.fromARGB(45, 255, 255, 255),
-        borderRadius: BorderRadius.circular(4),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: 6, horizontal: 12), // Extra padding for hover area
+        hoverColor: Colors.transparent,
+        onTap: () => _launchUrl(url),
+        onHover: (hovering) => setState(() => _isHovered = hovering),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: _isHovered ? AppColors.diksha : Colors.transparent,
+                width: 1.5,
+              ),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 6),
           child: Row(
             children: [
-              Icon(icon, color: Colors.white70, size: 16), // Icon added here
-              const SizedBox(width: 8), // Space between icon and text
+              Icon(icon, size: 18, color: Colors.white70),
+              const SizedBox(width: 12),
               Text(
                 text,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white70,
                   fontSize: 14,
-                  height: 1.5,
+                  letterSpacing: 0.8,
                 ),
               ),
             ],
@@ -248,113 +234,125 @@ class Footer extends StatelessWidget {
     );
   }
 
-  ResponsiveRowColumnItem _buildEcommerceSection() {
-    return ResponsiveRowColumnItem(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionTitle("Our Store"),
-          _buildFooterLink("Tech Gadgets", Icons.devices, () {
-            openUrl("$apiUrl/pystore");
-          }),
-          _buildFooterLink("Development Kits", Icons.build, () {
-            openUrl("$apiUrl/pystore");
-          }),
-          _buildFooterLink("Latest Product", Icons.support_agent, () {
-            openUrl("$apiUrl/pystore");
-          }),
-          const SizedBox(height: 15),
-          const Text(
-            "Subscribe to our newsletter:",
-            style: TextStyle(
-                fontFamily: "Orbitron",color: Colors.white70, fontSize: 14),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: 200,
-            child: TextField(
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: "Enter your email",
-                hintStyle: const TextStyle(color: Colors.white54),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: const Color.fromARGB(25, 255, 255, 255),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.send, color: Colors.white),
-                  onPressed: () {
-                    // Add email subscription functionality here
-                  },
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  ResponsiveRowColumnItem _buildContactSection() {
-    return ResponsiveRowColumnItem(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSectionTitle("Contact Us"),
-          _buildFooterLink("info@pydart.in", Icons.email, () {
-            openUrl("mailto:info@pydart.in");
-          }),
-          _buildFooterLink("+91 73567-65056", Icons.phone, () {
-            openUrl("tel:+917356765036");
-          }),
-          _buildFooterLink("Kakkanad, Kochi", Icons.location_on, () {
-            openUrl(
-                "https://www.google.com/maps?q=10.0159,76.3419"); // Replace with desired coordinates
-          }),
-          _buildFooterLink("Mon-Fri: 9AM - 6PM", Icons.access_time, () {}),
-          const SizedBox(height: 5),
-          _buildSectionTitle("Investor Relations"),
-          OutlinedButton(
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Color.fromARGB(181, 255, 255, 255)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-            onPressed: () {},
-            child: const Text(
-              "Investment Enquiry",
-              style: TextStyle(
-                fontFamily: "Orbitron",color: Color.fromARGB(181, 255, 255, 255)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title) {
+  Widget _buildContactItem(IconData icon, String text, VoidCallback onTap) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          letterSpacing: 1.2,
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: InkWell(
+        onTap: onTap,
+        hoverColor: AppColors.diksha.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Icon(icon, size: 18, color: Colors.white70),
+              const SizedBox(width: 12),
+              Text(
+                text,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 14,
+                  letterSpacing: 0.8,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void openUrl(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+  Widget _buildBottomBar(bool isMobile) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.white.withOpacity(0.1))),
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          _buildSocialIcons(),
+          const SizedBox(height: 20),
+          Text(
+            '© 2024 Diksha25. All rights reserved',
+            style: TextStyle(
+              color: Colors.white54,
+              fontSize: 12,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Website Credits: Pydart Intelli Corp',
+            style: TextStyle(
+              color: Colors.white54,
+              fontSize: 12,
+              letterSpacing: 1.2,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSocialIcons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildSocialIcon('assets/logos/diksha/insta.png', 'instagram',
+            'https://www.instagram.com/diksha_iet?igsh=dXQ4ajJkbHBiMG8='),
+        const SizedBox(width: 20),
+        _buildSocialIcon(
+            'assets/logos/diksha/fb.png', 'facebook', 'https://facebook.com'),
+        const SizedBox(width: 20),
+        _buildSocialIcon(
+            'assets/logos/diksha/x.png', 'twitter', 'https://x.com'),
+      ],
+    );
+  }
+
+  Widget _buildSocialIcon(String asset, String key, String url) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hoverStates[key] = true),
+      onExit: (_) => setState(() => _hoverStates[key] = false),
+      child: GestureDetector(
+        onTap: () => _launchUrl(url),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: _hoverStates[key]!
+                ? LinearGradient(
+                    colors: [
+                      AppColors.diksha.withOpacity(0.3),
+                      Colors.transparent,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  )
+                : null,
+          ),
+          child: AnimatedScale(
+            duration: const Duration(milliseconds: 200),
+            scale: _hoverStates[key]! ? 1.2 : 1.0,
+            child: Image.asset(
+              asset,
+              width: 24,
+              height: 24,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
     }
   }
 }

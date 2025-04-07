@@ -6,6 +6,7 @@ import 'package:flutter_website/screen/Home/cards/holographicCardTech.dart';
 import 'package:flutter_website/screen/Home/particles/cosmic.dart';
 import 'package:flutter_website/screen/Home/particles/culturalParticles.dart';
 import 'package:flutter_website/screen/culturalscreen.dart';
+import 'package:flutter_website/ui/blocks/common/footer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TechnicalEventsScreen extends StatelessWidget {
@@ -24,17 +25,20 @@ class TechnicalEventsScreen extends StatelessWidget {
           Positioned.fill(
             child: Stack(
               children: [
-                 Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color.fromARGB(255, 0, 0, 0), Color.fromARGB(255, 17, 0, 35)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            child: const ParticleField(),
-          ),
-                 CosmicBackground(),
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 0, 0, 0),
+                        Color.fromARGB(255, 17, 0, 35)
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: const ParticleField(),
+                ),
+                CosmicBackground(),
                 const ParticleField(),
               ],
             ),
@@ -55,9 +59,11 @@ class TechnicalEventsScreen extends StatelessWidget {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: 'DIKSHA 25'.split('').map((char) => 
-                                _AnimatedTechLetter(character: char)
-                              ).toList(),
+                              children: 'DIKSHA 25'
+                                  .split('')
+                                  .map((char) =>
+                                      _AnimatedTechLetter(character: char))
+                                  .toList(),
                             ),
                             const SizedBox(height: 15),
                             _AnimatedTechSubtitle(),
@@ -68,19 +74,24 @@ class TechnicalEventsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              
               SliverToBoxAdapter(
                 child: ResponsivePadding(
                   child: SectionHeader(
                     title: "TECHNICAL EVENTS",
-                    gradient: const [Color.fromARGB(255, 238, 119, 0), Color.fromARGB(255, 238, 119, 0)],
+                    gradient: const [
+                      Color.fromARGB(255, 238, 119, 0),
+                      Color.fromARGB(255, 238, 119, 0)
+                    ],
                   ),
                 ),
               ),
-
               SliverGrid(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 1 : isTablet ? 2 : 3,
+                  crossAxisCount: isMobile
+                      ? 1
+                      : isTablet
+                          ? 2
+                          : 3,
                   mainAxisExtent: isMobile ? 400 : 450,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 30,
@@ -90,8 +101,11 @@ class TechnicalEventsScreen extends StatelessWidget {
                   childCount: 13, // Number of events
                 ),
               ),
-
               const SliverToBoxAdapter(child: SizedBox(height: 100)),
+
+              const SliverToBoxAdapter(child: SizedBox(height: 50)),
+              // Add the footer at the bottom
+              const SliverToBoxAdapter(child: FooterBlock()),
             ],
           ),
         ],
@@ -101,179 +115,180 @@ class TechnicalEventsScreen extends StatelessWidget {
 
   Widget _buildTechEventCard(int index) {
     // Your event data here
-   final events = [
-  {
-    'name': 'Techtonic Trivia',
-    'coordinator': 'Navaneeth V ',
-    'contact': '+91 70345 72136',
-    'image': 'assets/images/diksha/quiz.jpg',
-    'date': '08-04-25',
-    'registration': '50 Rs /-',
-    'price': '500 Rs /-',
-    'icon': Icons.question_mark,
-    'color': Colors.blue,
-    'link': 'https://tiqr.events/e/TECHTONIC-TRIVIA-1154',
-  },
-  {
-    'name': 'GPT Web Crusader',
-    'coordinator': 'Aaesha VV',
-    'contact': '+91 92075 52662',
-    'image': 'assets/images/diksha/gpt.jpg',
-    'date': '09-04-25',
-    'registration': '50 Rs /-',
-    'price': '500 Rs /-',
-    'icon': Icons.smart_toy,
-    'color': Colors.green,
-    'link': 'https://tiqr.events/e/GPT-WEB-CRUSADER-1146',
-  },
-  {
-    'name': 'Poster Making Competition',
-    'coordinator': 'Nijin Raj',
-    'contact': '+91 94965 59841',
-    'image': 'assets/images/diksha/postermaking.jpg',
-    'date': '09-04-25',
-    'registration': '100 Rs /-',
-    'price': '1000 Rs /-',
-    'icon': Icons.brush,
-    'color': Colors.deepPurple,
-    'link': 'https://tiqr.events/e/POSTER-MAKING-1140',
-  },
-  {
-    'name': 'Code War',
-    'coordinator': 'Nashwan bin Niyaz',
-    'contact': '+91 70125 70023',
-    'image': 'assets/images/diksha/codewar.jpg',
-    'date': '09-04-25',
-    'registration': '50 Rs /-',
-    'price': '500 Rs /-',
-    'icon': Icons.code,
-    'color': Colors.lightBlue,
-    'link': 'https://tiqr.events/e/CODE-WAR-1145',
-  },
-  {
-    'name': 'CAD War',
-    'coordinator': 'ABHINAV . P',
-    'contact': '+91 90619 61650',
-    'image': 'assets/images/diksha/cadwar.jpg',
-    'date': '09-04-25',
-    'registration': '50 Rs /-',
-    'price': '500 Rs /-',
-    'icon': Icons.design_services,
-    'color': Colors.lime,
-    'link': 'https://tiqr.events/e/CAD-WAR-1157',
-  },
-  {
-    'name': 'Colour Mixing',
-    'coordinator': 'Vishnu',
-    'contact': '+91  97781 21196',
-    'image': 'assets/images/diksha/colormixing.jpg',
-    'date': '11-04-25',
-    'registration': '150 Rs /-',
-    'price': '1000 Rs /-',
-    'icon': Icons.color_lens,
-    'color': Colors.pinkAccent,
-    'link': 'https://tiqr.events/e/COLOR-MIXING-1139',
-  },
-  {
-    'name': 'Circuit Debugging',
-    'coordinator': 'Abhinand',
-    'contact': '+91 88482 39646',
-    'image': 'assets/images/diksha/circuitdebugging.jpg',
-    'date': '11-04-25',
-    'registration': '50 Rs /-',
-    'price': '500 Rs /-',
-    'icon': Icons.memory,
-    'color': Colors.teal,
-    'link': 'https://tiqr.events/e/CODE-DEBUGGING-1156',
-  },
-  {
-    'name': 'Project Presentation',
-    'coordinator': 'Navas ',
-    'contact': '+91 97449 33891',
-    'image': 'assets/images/diksha/project.jpg',
-    'date': '11-04-25',
-    'registration': 'Free',
-    'price': 'TBA ',
-    'icon': Icons.present_to_all,
-    'color': Colors.indigo,
-    'link': 'https://tiqr.events/e/PROJECT-PRESENTATION-1155',
-  },
-  {
-    'name': 'Circuit Decoding',
-    'coordinator': 'Mohd Nishmal',
-    'contact': '+91 95629 21958',
-    'image': 'assets/images/diksha/circuitdecoding.jpg',
-    'date': '11-04-25',
-    'registration': '50 Rs /-',
-    'price': '500 Rs /-',
-    'icon': Icons.electrical_services,
-    'color': Colors.amber,
-    'link': 'https://tiqr.events/e/CIRCUITa-DECODING-1153',
-  },
-  {
-    'name': 'Ideathon',
-    'coordinator': 'Amal',
-    'contact': '+91 90371 64629',
-    'image': 'assets/images/diksha/ideathon.jpg',
-    'date': '11-04-25',
-    'registration': 'Free',
-    'price': '3000 Rs /-',
-    'icon': Icons.lightbulb,
-    'color': Colors.deepOrange,
-    'link': 'https://www.instagram.com/diksha_iet?igsh=MWR5cWJieXFvdTBiMQ==',
-  },
-  {
-    'name': 'Robo War',
-    'coordinator': 'Kavya',
-    'contact': '+91 81290 07588',
-    'image': 'assets/images/diksha/robowar.jpg',
-    'date': '12-04-25',
-    'registration': '250Rs /-',
-    'price': '5000 Rs /-',
-    'icon': Icons.rocket_launch,
-    'color': Colors.cyan,
-    'link': 'https://tiqr.events/e/ROBO-WAR-1144',
-  },
-  {
-    'name': 'Line Follower',
-    'coordinator': 'Nivedhya',
-    'contact': '+91 97471 66096',
-    'image': 'assets/images/diksha/linefollower.jpg',
-    'date': '12-04-25',
-    'registration': '150 Rs /-',
-    'price': '2000 Rs /-',
-    'icon': Icons.directions_car,
-    'color': Colors.orange,
-    'link': 'https://tiqr.events/e/LINE-FOLLOWER-1142',
-  },
-  {
-    'name': 'Robo Tug of War',
-    'coordinator': 'Heera Suresh M',
-    'contact': '+91 90481 87462',
-    'image': 'assets/images/diksha/tugofwar.jpg',
-    'date': '12-04-25',
-    'registration': '150 Rs /-',
-    'price': '2000 Rs /-',
-    'icon': Icons.handshake,
-    'color': Colors.redAccent,
-    'link': 'https://tiqr.events/e/ROBO-TUG-OF-WAR-1137',
-  },
-];
+    final events = [
+      {
+        'name': 'Techtonic Trivia',
+        'coordinator': 'Navaneeth V ',
+        'contact': '+91 70345 72136',
+        'image': 'assets/images/diksha/quiz.webp',
+        'date': '08-04-25',
+        'registration': '50 Rs /-',
+        'price': '500 Rs /-',
+        'icon': Icons.question_mark,
+        'color': Colors.blue,
+        'link': 'https://tiqr.events/e/TECHTONIC-TRIVIA-1154',
+      },
+      {
+        'name': 'GPT Web Crusader',
+        'coordinator': 'Aaesha VV',
+        'contact': '+91 92075 52662',
+        'image': 'assets/images/diksha/gpt.webp',
+        'date': '09-04-25',
+        'registration': '50 Rs /-',
+        'price': '500 Rs /-',
+        'icon': Icons.smart_toy,
+        'color': Colors.green,
+        'link': 'https://tiqr.events/e/GPT-WEB-CRUSADER-1146',
+      },
+      {
+        'name': 'Poster Making Competition',
+        'coordinator': 'Nijin Raj',
+        'contact': '+91 94965 59841',
+        'image': 'assets/images/diksha/postermaking.webp',
+        'date': '09-04-25',
+        'registration': '100 Rs /-',
+        'price': '1000 Rs /-',
+        'icon': Icons.brush,
+        'color': Colors.deepPurple,
+        'link': 'https://tiqr.events/e/POSTER-MAKING-1140',
+      },
+      {
+        'name': 'Code War',
+        'coordinator': 'Nashwan bin Niyaz',
+        'contact': '+91 70125 70023',
+        'image': 'assets/images/diksha/codewar.webp',
+        'date': '09-04-25',
+        'registration': '50 Rs /-',
+        'price': '500 Rs /-',
+        'icon': Icons.code,
+        'color': Colors.lightBlue,
+        'link': 'https://tiqr.events/e/CODE-WAR-1145',
+      },
+      {
+        'name': 'CAD War',
+        'coordinator': 'ABHINAV . P',
+        'contact': '+91 90619 61650',
+        'image': 'assets/images/diksha/cadwar.webp',
+        'date': '09-04-25',
+        'registration': '50 Rs /-',
+        'price': '500 Rs /-',
+        'icon': Icons.design_services,
+        'color': Colors.lime,
+        'link': 'https://tiqr.events/e/CAD-WAR-1157',
+      },
+      {
+        'name': 'Colour Mixing',
+        'coordinator': 'Vishnu',
+        'contact': '+91  97781 21196',
+        'image': 'assets/images/diksha/colormixing.webp',
+        'date': '11-04-25',
+        'registration': '150 Rs /-',
+        'price': '1000 Rs /-',
+        'icon': Icons.color_lens,
+        'color': Colors.pinkAccent,
+        'link': 'https://tiqr.events/e/COLOR-MIXING-1139',
+      },
+      {
+        'name': 'Circuit Debugging',
+        'coordinator': 'Abhinand',
+        'contact': '+91 88482 39646',
+        'image': 'assets/images/diksha/circuitdebugging.webp',
+        'date': '11-04-25',
+        'registration': '50 Rs /-',
+        'price': '500 Rs /-',
+        'icon': Icons.memory,
+        'color': Colors.teal,
+        'link': 'https://tiqr.events/e/CODE-DEBUGGING-1156',
+      },
+      {
+        'name': 'Project Presentation',
+        'coordinator': 'Navas ',
+        'contact': '+91 97449 33891',
+        'image': 'assets/images/diksha/project.webp',
+        'date': '11-04-25',
+        'registration': 'Free',
+        'price': 'TBA ',
+        'icon': Icons.present_to_all,
+        'color': Colors.indigo,
+        'link': 'https://tiqr.events/e/PROJECT-PRESENTATION-1155',
+      },
+      {
+        'name': 'Circuit Decoding',
+        'coordinator': 'Mohd Nishmal',
+        'contact': '+91 95629 21958',
+        'image': 'assets/images/diksha/circuitdecoding.webp',
+        'date': '11-04-25',
+        'registration': '50 Rs /-',
+        'price': '500 Rs /-',
+        'icon': Icons.electrical_services,
+        'color': Colors.amber,
+        'link': 'https://tiqr.events/e/CIRCUITa-DECODING-1153',
+      },
+      {
+        'name': 'Ideathon',
+        'coordinator': 'Amal',
+        'contact': '+91 90371 64629',
+        'image': 'assets/images/diksha/ideathon.webp',
+        'date': '11-04-25',
+        'registration': 'Free',
+        'price': '3000 Rs /-',
+        'icon': Icons.lightbulb,
+        'color': Colors.deepOrange,
+        'link':
+            'https://www.instagram.com/diksha_iet?igsh=MWR5cWJieXFvdTBiMQ==',
+      },
+      {
+        'name': 'Robo War',
+        'coordinator': 'Kavya',
+        'contact': '+91 81290 07588',
+        'image': 'assets/images/diksha/robowar.webp',
+        'date': '12-04-25',
+        'registration': '250Rs /-',
+        'price': '5000 Rs /-',
+        'icon': Icons.rocket_launch,
+        'color': Colors.cyan,
+        'link': 'https://tiqr.events/e/ROBO-WAR-1144',
+      },
+      {
+        'name': 'Line Follower',
+        'coordinator': 'Nivedhya',
+        'contact': '+91 97471 66096',
+        'image': 'assets/images/diksha/linefollower.webp',
+        'date': '12-04-25',
+        'registration': '150 Rs /-',
+        'price': '2000 Rs /-',
+        'icon': Icons.directions_car,
+        'color': Colors.orange,
+        'link': 'https://tiqr.events/e/LINE-FOLLOWER-1142',
+      },
+      {
+        'name': 'Robo Tug of War',
+        'coordinator': 'Heera Suresh M',
+        'contact': '+91 90481 87462',
+        'image': 'assets/images/diksha/tugofwar.webp',
+        'date': '12-04-25',
+        'registration': '150 Rs /-',
+        'price': '2000 Rs /-',
+        'icon': Icons.handshake,
+        'color': Colors.redAccent,
+        'link': 'https://tiqr.events/e/ROBO-TUG-OF-WAR-1137',
+      },
+    ];
 
-
-  return HolographicCardTech(
-  image: events[index % events.length]['image'] as String? ?? '',
-  title: events[index % events.length]['name'] as String? ?? '',
-  date: events[index % events.length]['date'] as String? ?? '', // fallback
-  price: events[index % events.length]['price'] as String? ?? '',
-  coordinator: events[index % events.length]['coordinator'] as String? ?? '',
-  contact: events[index % events.length]['contact'] as String? ?? '',
-  registration: events[index % events.length]['registration'] as String? ?? '',
-  icon: events[index % events.length]['icon'] as IconData? ?? Icons.info,
-  color: events[index % events.length]['color'] as Color? ?? Colors.grey,
-   link: events[index % events.length]['link'] as String? ?? '',
-);
-
+    return HolographicCardTech(
+      image: events[index % events.length]['image'] as String? ?? '',
+      title: events[index % events.length]['name'] as String? ?? '',
+      date: events[index % events.length]['date'] as String? ?? '', // fallback
+      price: events[index % events.length]['price'] as String? ?? '',
+      coordinator:
+          events[index % events.length]['coordinator'] as String? ?? '',
+      contact: events[index % events.length]['contact'] as String? ?? '',
+      registration:
+          events[index % events.length]['registration'] as String? ?? '',
+      icon: events[index % events.length]['icon'] as IconData? ?? Icons.info,
+      color: events[index % events.length]['color'] as Color? ?? Colors.grey,
+      link: events[index % events.length]['link'] as String? ?? '',
+    );
   }
 
   LinearGradient _getTechGradient(int index) {
@@ -300,7 +315,7 @@ class _AnimatedTechLetter extends StatefulWidget {
   __AnimatedTechLetterState createState() => __AnimatedTechLetterState();
 }
 
-class __AnimatedTechLetterState extends State<_AnimatedTechLetter> 
+class __AnimatedTechLetterState extends State<_AnimatedTechLetter>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -314,11 +329,10 @@ class __AnimatedTechLetterState extends State<_AnimatedTechLetter>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    
+
     _scaleAnimation = Tween<double>(begin: 1.0, end: 1.4).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut)
-    );
-    
+        CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
+
     _colorAnimation = ColorTween(
       begin: const Color(0xFF00F2FE),
       end: const Color(0xFFFE53BB),
@@ -350,8 +364,8 @@ class __AnimatedTechLetterState extends State<_AnimatedTechLetter>
               ..rotateZ(_isHovered ? 0.1 : 0),
             child: Text(
               widget.character,
-            style: TextStyle(
-                  fontFamily: 'Orbitron',
+              style: TextStyle(
+                fontFamily: 'Orbitron',
                 fontSize: 42,
                 shadows: [
                   Shadow(
@@ -397,14 +411,16 @@ class __AnimatedTechSubtitleState extends State<_AnimatedTechSubtitle>
     _glitchController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 80),
-    )..addListener(() {
+    )
+      ..addListener(() {
         setState(() {
           _offsetX = (_random.nextDouble() - 0.5) * 4;
           _offsetY = (_random.nextDouble() - 0.5) * 2;
           _cyanOpacity = _random.nextDouble() > 0.9 ? 1.0 : 0.0;
           _pinkOpacity = _random.nextDouble() > 0.9 ? 1.0 : 0.0;
         });
-      })..repeat();
+      })
+      ..repeat();
   }
 
   @override
@@ -476,8 +492,8 @@ class _TechnicalAnimatedBackground extends StatefulWidget {
       __TechnicalAnimatedBackgroundState();
 }
 
-class __TechnicalAnimatedBackgroundState extends State<_TechnicalAnimatedBackground>
-    with TickerProviderStateMixin {
+class __TechnicalAnimatedBackgroundState
+    extends State<_TechnicalAnimatedBackground> with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   late AnimationController _imageController;
@@ -535,7 +551,7 @@ class __TechnicalAnimatedBackgroundState extends State<_TechnicalAnimatedBackgro
             return Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: const AssetImage('assets/images/diksha/tech.png'),
+                  image: const AssetImage('assets/images/diksha/tech.webp'),
                   fit: BoxFit.cover,
                   opacity: _imageOpacityAnimation.value,
                   alignment: _imageAlignmentAnimation.value,

@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_website/components/colors.dart';
 
-import 'package:flutter_website/screen/Home/blocks/people.dart' show PeopleBlock;
+import 'package:flutter_website/screen/Home/blocks/people.dart'
+    show PeopleBlock;
 import 'package:flutter_website/screen/Home/blocks/introBlock.dart';
 
 import 'package:flutter_website/screen/home/blocks/HeaderBlock.dart';
 
 import 'package:flutter_website/screen/home/blocks/block1.dart'
     show TechFestHero;
+import 'package:flutter_website/ui/blocks/common/footer.dart';
 
 class NoGlowScrollBehavior extends ScrollBehavior {
   @override
@@ -30,7 +32,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoaded = false;
   bool _showScrollButtons = false;
-   double _scrollOffset = 0.0;
+  double _scrollOffset = 0.0;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -80,8 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-        final double opacity = (1.0 - (_scrollOffset / 200)).clamp(0.0, 1.0);
+    final double opacity = (1.0 - (_scrollOffset / 200)).clamp(0.0, 1.0);
     final double blurSigma = (_scrollOffset / 20).clamp(0.0, 10.0);
     return Scaffold(
       backgroundColor: background,
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SafeArea(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                   child: Opacity(
+                    child: Opacity(
                       opacity: opacity,
                       child: ClipRect(
                         child: BackdropFilter(
@@ -119,10 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             sigmaY: blurSigma,
                           ),
                           child: Container(
-                        
                             child: HeaderBlock(),
-
-
                           ),
                         ),
                       ),
@@ -156,9 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: widget,
               ),
             ),
-            children: [TechFestHero(),
-            IntroBlock(),
-          PeopleBlock()
+            children: [
+              TechFestHero(),
+              IntroBlock(),
+              PeopleBlock(),
+              FooterBlock()
             ],
           ),
         ),
@@ -179,7 +179,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: FloatingActionButton(
               onPressed: _scrollToTop,
-              backgroundColor: Colors.blueGrey.withOpacity(0.8),
+              backgroundColor:
+                  const Color.fromARGB(81, 54, 7, 87).withOpacity(0.8),
               child: const Icon(Icons.arrow_upward, color: Colors.white),
             ),
           ),
@@ -191,7 +192,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             child: FloatingActionButton(
               onPressed: _scrollToBottom,
-              backgroundColor: Colors.blueGrey.withOpacity(0.8),
+              backgroundColor:
+                  const Color.fromARGB(81, 54, 7, 87).withOpacity(0.8),
               child: const Icon(Icons.arrow_downward, color: Colors.white),
             ),
           ),
