@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_website/components/icons.dart';
 import 'package:flutter_website/components/spacing.dart';
 import 'package:flutter_website/core/extensions/color_extensions.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PeopleBlock extends StatefulWidget {
   const PeopleBlock({super.key});
@@ -71,356 +72,215 @@ class _PeopleBlockState extends State<PeopleBlock> {
   ];
 
   // Updated co sponsors data. Note the addition of 'width' and 'height'.
+  // in your State class:
   final List<Map<String, dynamic>> coSponsors = [
     {
       'name': '',
       'logo': 'assets/logos/pydartw.png',
       'width': 250.0,
       'height': 200.0,
+      'description':
+          'Software, Hardware and Firmware developmet with Integrated AI',
+      'website': 'https://www.pydart.in',
     },
     {
       'name': '',
-      'logo': 'assets/logos/brickly.png',
+      'logo': 'assets/logos/brickly.webp',
       'width': 400.0,
-      'height': 300.0,
+      'height': 200.0,
+      'description': 'Innovating Construction Management',
+      'website': 'https://www.brickly.ai',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    final bool isMobile = MediaQuery.of(context).size.width < 600;
+    final isMobile = MediaQuery.of(context).size.width < 600;
+    final contentPadding = isMobile ? 24.0 : 48.0;
+
     return Container(
       width: double.infinity,
       margin: blockMargin.copyWith(top: 40, bottom: 40),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 0,
-            spreadRadius: 2,
-            offset: const Offset(0, 10),
-          )
-        ],
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.primary.withOpacity(0.1),
+            AppColors.secondary.withOpacity(0.3),
+          ],
+        ),
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(0),
-        child: Stack(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage('assets/images/diksha/team.jpg'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.7),
+              BlendMode.darken,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 40,
+            horizontal: contentPadding,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeader(isMobile),
+              const SizedBox(height: 40),
+              _buildTeamSection(isMobile),
+              const SizedBox(height: 40),
+              _buildFAQSection(isMobile),
+              const SizedBox(height: 40),
+              _buildSponsorsSection(isMobile),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(bool isMobile) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        buildMaterialIconCircle(
+          "assets/logos/diksha/dikshalogoyellownoletter.png",
+          isMobile ? 40 : 56,
+        ),
+        const SizedBox(width: 16),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: const AssetImage('assets/images/diksha/team.jpg'),
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.8),
-                      BlendMode.darken,
-                    ),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      AppColors.primary.withOpacity(0.1),
-                      AppColors.secondary.withOpacity(0.3),
-                    ],
-                  ),
-                ),
+            Text(
+              "Wisdom Circle",
+              style: TextStyle(
+                fontFamily: "Orbitron",
+                color: Colors.white,
+                fontSize: isMobile ? 28 : 36,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.2,
               ),
             ),
-            Container(
-              padding: blockPadding(context).copyWith(top: 40, bottom: 60),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header Section
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        buildMaterialIconCircle(
-                          "assets/logos/diksha/dikshalogoyellownoletter.png",
-                          48,
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Wisdom Circle",
-                                style: TextStyle(
-                                  fontFamily: "Orbitron",
-                                  color: Colors.white,
-                                  fontSize: isMobile ? 24 : 32,
-                                  fontWeight: FontWeight.w600,
-                                  height: 1.2,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                "Learn. Lead. Inspire.",
-                                style: TextStyle(
-                                  fontFamily: "Orbitron",
-                                  color: AppColors.whitegrey,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  // Team Members Section
-                  isMobile
-                      ? GridView.count(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 12,
-                          crossAxisSpacing: 12,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: teamMembers
-                              .map((member) => _buildTeamMemberCard(
-                                    member,
-                                    isMobile: isMobile,
-                                  ))
-                              .toList(),
-                        )
-                      : SizedBox(
-                          height: 220, // Compact height for team members
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            itemCount: teamMembers.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                child: _buildTeamMemberCard(
-                                  teamMembers[index],
-                                  isMobile: isMobile,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                  const SizedBox(height: 30),
-                  // FAQ Section
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "FAQs",
-                          style: TextStyle(
-                            fontFamily: "Orbitron",
-                            color: Colors.white,
-                            fontSize: isMobile ? 20 : 24,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        ...faqItems.asMap().entries.map((entry) {
-                          final index = entry.key;
-                          final faq = entry.value;
-                          return _buildFAQItem(
-                            question: faq['question']!,
-                            answer: faq['answer']!,
-                            isExpanded: _isExpanded[index],
-                            onTap: () => setState(
-                                () => _isExpanded[index] = !_isExpanded[index]),
-                          );
-                        }).toList(),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  // New Co Sponsors Section with individualized logo sizes
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Co Sponsors",
-                            style: TextStyle(
-                              fontFamily: "Orbitron",
-                              color: Colors.black87,
-                              fontSize: isMobile ? 20 : 24,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: coSponsors.map((sponsor) {
-                              return Column(
-                                children: [
-                                  Image.asset(
-                                    sponsor['logo']!,
-                                    width: sponsor['width'],
-                                    height: sponsor['height'],
-                                    fit: BoxFit.contain,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    sponsor['name']!,
-                                    style: TextStyle(
-                                      fontFamily: "Orbitron",
-                                      color: Colors.black54,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+            Text(
+              "Learn • Lead • Inspire",
+              style: TextStyle(
+                fontFamily: "Orbitron",
+                color: AppColors.diksha,
+                fontSize: isMobile ? 14 : 16,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 
-  Widget _buildFAQItem({
-    required String question,
-    required String answer,
-    required bool isExpanded,
-    required VoidCallback onTap,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: AppColors.diksha.withOpacity(isExpanded ? 0.3 : 0.15),
-              width: 1,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        question,
-                        style: TextStyle(
-                          fontFamily: "Orbitron",
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    Icon(
-                      isExpanded ? Icons.expand_less : Icons.expand_more,
-                      color: AppColors.diksha,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                if (isExpanded) ...[
-                  const SizedBox(height: 12),
-                  Text(
-                    answer,
-                    style: TextStyle(
-                      fontFamily: "Orbitron",
-                      color: Colors.white70,
-                      fontSize: 12,
-                      height: 1.4,
-                    ),
-                  ),
-                ],
-              ],
-            ),
+  Widget _buildTeamSection(bool isMobile) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Organizing Team",
+          style: TextStyle(
+            fontFamily: "Orbitron",
+            color: Colors.white,
+            fontSize: isMobile ? 24 : 32,
+            fontWeight: FontWeight.w700,
           ),
         ),
-      ),
+        const SizedBox(height: 24),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            if (isMobile) {
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                ),
+                itemCount: teamMembers.length,
+                itemBuilder: (context, index) =>
+                    _buildTeamCard(teamMembers[index], isMobile: true),
+              );
+            }
+            return SizedBox(
+              height: 280,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: teamMembers.length,
+                separatorBuilder: (_, __) => const SizedBox(width: 24),
+                itemBuilder: (context, index) =>
+                    _buildTeamCard(teamMembers[index]),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 
-  Widget _buildTeamMemberCard(Map<String, String> member,
-      {required bool isMobile}) {
-    // Remove newline characters from the name when on mobile
-    final String displayName =
-        isMobile ? member['name']!.replaceAll('\n', '') : member['name']!;
+  Widget _buildTeamCard(Map<String, String> member, {bool isMobile = false}) {
     return Container(
-      width: 160,
+      width: isMobile ? null : 200,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color.fromARGB(90, 0, 0, 0),
+        color: Colors.black.withOpacity(0.25),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          )
         ],
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundImage: AssetImage(member['image']!),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              displayName,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: "Orbitron",
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: AppColors.diksha.withOpacity(0.4),
+                width: 2,
               ),
-              maxLines: 2,
+            ),
+            child: CircleAvatar(
+              radius: isMobile ? 48 : 56,
+              backgroundImage: AssetImage(member['image']!),
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 16),
+          Text(
+            member['name']!,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: "Orbitron",
+              color: Colors.white,
+              fontSize: isMobile ? 14 : 16,
+              fontWeight: FontWeight.w600,
+              height: 1.2,
+            ),
+            maxLines: 2,
+          ),
+          const SizedBox(height: 8),
           Text(
             member['role']!,
             style: TextStyle(
               fontFamily: "Orbitron",
               color: AppColors.diksha,
-              fontSize: 12,
+              fontSize: isMobile ? 12 : 14,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 4),
@@ -429,7 +289,213 @@ class _PeopleBlockState extends State<PeopleBlock> {
             style: TextStyle(
               fontFamily: "Orbitron",
               color: Colors.white70,
-              fontSize: 11,
+              fontSize: isMobile ? 11 : 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFAQSection(bool isMobile) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Frequently Asked Questions",
+          style: TextStyle(
+            fontFamily: "Orbitron",
+            color: Colors.white,
+            fontSize: isMobile ? 24 : 32,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        const SizedBox(height: 24),
+        ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: faqItems.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 16),
+          itemBuilder: (context, index) {
+            final faq = faqItems[index];
+            return _buildFAQItem(
+              question: faq['question']!,
+              answer: faq['answer']!,
+              isExpanded: _isExpanded[index],
+              onTap: () =>
+                  setState(() => _isExpanded[index] = !_isExpanded[index]),
+              isMobile: isMobile,
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFAQItem({
+    required String question,
+    required String answer,
+    required bool isExpanded,
+    required VoidCallback onTap,
+    required bool isMobile,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          decoration: BoxDecoration(
+            color: isExpanded
+                ? AppColors.diksha.withOpacity(0.1)
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: isExpanded ? AppColors.diksha : Colors.white24,
+              width: 1,
+            ),
+          ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      question,
+                      style: TextStyle(
+                        fontFamily: "Orbitron",
+                        color: Colors.white,
+                        fontSize: isMobile ? 16 : 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    isExpanded ? Icons.remove : Icons.add,
+                    color: AppColors.diksha,
+                    size: 24,
+                  ),
+                ],
+              ),
+              if (isExpanded) ...[
+                const SizedBox(height: 12),
+                Text(
+                  answer,
+                  style: TextStyle(
+                    fontFamily: "Orbitron",
+                    color: Colors.white70,
+                    fontSize: isMobile ? 14 : 16,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSponsorsSection(bool isMobile) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.diksha.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "Co - Sponsors",
+            style: TextStyle(
+              fontFamily: "Orbitron",
+              color: Colors.white,
+              fontSize: isMobile ? 24 : 32,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          Center(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: isMobile ? 24 : 48,
+              runSpacing: isMobile ? 24 : 48,
+              children: coSponsors.map((sponsor) {
+                final double logoW =
+                    isMobile ? sponsor['width'] * 0.7 : sponsor['width'] * 0.9;
+                final double logoH = isMobile
+                    ? sponsor['height'] * 0.7
+                    : sponsor['height'] * 0.9;
+
+                return Container(
+                  width: 400,
+                  height: 300,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: logoW,
+                        height: logoH,
+                        child: Image.asset(
+                          sponsor['logo']!,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        sponsor['description']!,
+                        style: TextStyle(
+                          fontFamily: "Orbitron",
+                          color: Colors.black87,
+                          fontSize: isMobile ? 12 : 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      // tappable website link
+                      InkWell(
+                        onTap: () async {
+                          final uri = Uri.parse(sponsor['website']!);
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrl(uri,
+                                mode: LaunchMode.externalApplication);
+                          }
+                        },
+                        child: Text(
+                          sponsor['website']!,
+                          style: TextStyle(
+                            fontFamily: "Orbitron",
+                            fontSize: isMobile ? 12 : 14,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
           ),
         ],

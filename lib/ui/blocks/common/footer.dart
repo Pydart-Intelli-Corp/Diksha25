@@ -366,7 +366,7 @@ class _FooterBlockState extends State<FooterBlock> {
         ),
         const SizedBox(width: 30),
         Image.asset(
-          'assets/logos/brickly.png',
+          'assets/logos/brickly.webp',
           width: 100,
           height: 100,
           fit: BoxFit.contain,
