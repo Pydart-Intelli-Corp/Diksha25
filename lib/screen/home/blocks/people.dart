@@ -13,25 +13,44 @@ class PeopleBlock extends StatefulWidget {
 class _PeopleBlockState extends State<PeopleBlock> {
   final List<Map<String, String>> teamMembers = [
     {
-      'name': 'Sagar Sunny',
+      'name': 'Sagar Sunny \n    ',
       'role': 'Convener',
       'bio': 'Diksha 25',
       'image': 'assets/images/diksha/sagar.webp'
     },
-   
+    {
+      'name': 'Mohammed sanjid T M ',
+      'role': 'Chairman',
+      'bio': 'IET UOC',
+      'image': 'assets/images/diksha/sanjid.jpg'
+    },
     {
       'name': 'Mohammed Faljash T M',
       'role': 'Co-Convener',
       'bio': 'Diksha 25',
       'image': 'assets/images/diksha/Faljash.webp'
     },
-     {
-      'name': 'Dr. Ranjith C',
+    {
+      'name': 'Aswin Uday PP\n',
+      'role': 'Co-Convener',
+      'bio': 'Diksha 25',
+      'image': 'assets/images/diksha/aswin.jpg'
+    },
+    {
+      'name': 'Dr. Ranjith C\n',
       'role': 'Principal',
       'bio': 'IET UOC',
       'image': 'assets/images/diksha/principal.jpg'
     },
+    {
+      'name': 'Gokul CT\n',
+      'role': 'Treasurer',
+      'bio': 'Diksha 25',
+      'image': 'assets/images/diksha/gokul.jpg'
+    },
   ];
+
+  // FAQ items list remains unchanged.
   final List<bool> _isExpanded = [false, false, false];
   final List<Map<String, String>> faqItems = [
     {
@@ -50,6 +69,23 @@ class _PeopleBlockState extends State<PeopleBlock> {
           'Yes! Proshow tickets are available for everyone. Book early to secure your spot.',
     },
   ];
+
+  // Updated co sponsors data. Note the addition of 'width' and 'height'.
+  final List<Map<String, dynamic>> coSponsors = [
+    {
+      'name': '',
+      'logo': 'assets/logos/pydartw.png',
+      'width': 250.0,
+      'height': 200.0,
+    },
+    {
+      'name': '',
+      'logo': 'assets/logos/brickly.png',
+      'width': 400.0,
+      'height': 300.0,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.width < 600;
@@ -98,14 +134,16 @@ class _PeopleBlockState extends State<PeopleBlock> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Header Section
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         buildMaterialIconCircle(
-                            "assets/logos/diksha/dikshalogoyellownoletter.png",
-                            48),
+                          "assets/logos/diksha/dikshalogoyellownoletter.png",
+                          48,
+                        ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Column(
@@ -137,21 +175,41 @@ class _PeopleBlockState extends State<PeopleBlock> {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  SizedBox(
-                    height: 220, // Compact height for team members
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      itemCount: teamMembers.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: _buildTeamMemberCard(teamMembers[index]),
-                        );
-                      },
-                    ),
-                  ),
+                  // Team Members Section
+                  isMobile
+                      ? GridView.count(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: teamMembers
+                              .map((member) => _buildTeamMemberCard(
+                                    member,
+                                    isMobile: isMobile,
+                                  ))
+                              .toList(),
+                        )
+                      : SizedBox(
+                          height: 220, // Compact height for team members
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            itemCount: teamMembers.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                child: _buildTeamMemberCard(
+                                  teamMembers[index],
+                                  isMobile: isMobile,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                   const SizedBox(height: 30),
+                  // FAQ Section
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 32),
                     child: Column(
@@ -179,6 +237,66 @@ class _PeopleBlockState extends State<PeopleBlock> {
                           );
                         }).toList(),
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  // New Co Sponsors Section with individualized logo sizes
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Co Sponsors",
+                            style: TextStyle(
+                              fontFamily: "Orbitron",
+                              color: Colors.black87,
+                              fontSize: isMobile ? 20 : 24,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: coSponsors.map((sponsor) {
+                              return Column(
+                                children: [
+                                  Image.asset(
+                                    sponsor['logo']!,
+                                    width: sponsor['width'],
+                                    height: sponsor['height'],
+                                    fit: BoxFit.contain,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    sponsor['name']!,
+                                    style: TextStyle(
+                                      fontFamily: "Orbitron",
+                                      color: Colors.black54,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -256,9 +374,13 @@ class _PeopleBlockState extends State<PeopleBlock> {
     );
   }
 
-  Widget _buildTeamMemberCard(Map<String, String> member) {
+  Widget _buildTeamMemberCard(Map<String, String> member,
+      {required bool isMobile}) {
+    // Remove newline characters from the name when on mobile
+    final String displayName =
+        isMobile ? member['name']!.replaceAll('\n', '') : member['name']!;
     return Container(
-      width: 160, // Compact width
+      width: 160,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: const Color.fromARGB(90, 0, 0, 0),
@@ -274,14 +396,14 @@ class _PeopleBlockState extends State<PeopleBlock> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
-            radius: 30, // Smaller avatar
+            radius: 30,
             backgroundImage: AssetImage(member['image']!),
           ),
           const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
-              member['name']!,
+              displayName,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: "Orbitron",

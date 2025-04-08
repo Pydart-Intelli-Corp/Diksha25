@@ -16,7 +16,7 @@ class _HeaderBlockState extends State<HeaderBlock> {
   int _selectedIndex = -1;
   bool _isMenuOpen = false;
   final List<String> _navItems = ['HOME', 'EVENTS', 'GALLERY', 'CONTACT US'];
-  int _expandedIndex = -1;
+  bool _isRegisterHovered = false;
   // ─── Reload the HomeScreen ─────────────────────────────────────────────
   void _reloadHome() {
     Navigator.pushReplacement(
@@ -170,113 +170,113 @@ class _HeaderBlockState extends State<HeaderBlock> {
   }
 
   void _showContactMenu(PointerEnterEvent event) {
-  final position = RelativeRect.fromLTRB(
-    event.position.dx,
-    event.position.dy,
-    event.position.dx,
-    event.position.dy,
-  );
-  showMenu(
-    context: context,
-    position: position,
-    constraints: const BoxConstraints(minWidth: 350, maxWidth: 350),
-    items: [
-      PopupMenuItem(
-        enabled: false,
-        child: MouseRegion(
-          hitTestBehavior: HitTestBehavior.translucent,
-          onExit: (_) => Navigator.pop(context),
-          child: Container(
-            width: 350,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.purpleAccent, width: 1),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildContactItem(
-                  icon: Icons.email,
-                  text: 'diksha25iet@gmail.com',
-                  onTap: () async {
-                    Navigator.pop(context);
-                    final Uri emailUri = Uri(
-                      scheme: 'mailto',
-                      path: 'diksha25iet@gmail.com',
-                    );
-                    if (await canLaunchUrl(emailUri)) {
-                      await launchUrl(emailUri);
-                    }
-                  },
-                ),
-                _buildContactItem(
-                  icon: Icons.phone,
-                  text: '+91 73061 24112',
-                  onTap: () async {
-                    Navigator.pop(context);
-                    final Uri telUri = Uri(
-                      scheme: 'tel',
-                      path: '+917306124112',
-                    );
-                    if (await canLaunchUrl(telUri)) {
-                      await launchUrl(telUri);
-                    }
-                  },
-                ),
-              ],
+    final position = RelativeRect.fromLTRB(
+      event.position.dx,
+      event.position.dy,
+      event.position.dx,
+      event.position.dy,
+    );
+    showMenu(
+      context: context,
+      position: position,
+      constraints: const BoxConstraints(minWidth: 350, maxWidth: 350),
+      items: [
+        PopupMenuItem(
+          enabled: false,
+          child: MouseRegion(
+            hitTestBehavior: HitTestBehavior.translucent,
+            onExit: (_) => Navigator.pop(context),
+            child: Container(
+              width: 350,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.purpleAccent, width: 1),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildContactItem(
+                    icon: Icons.email,
+                    text: 'diksha25iet@gmail.com',
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final Uri emailUri = Uri(
+                        scheme: 'mailto',
+                        path: 'diksha25iet@gmail.com',
+                      );
+                      if (await canLaunchUrl(emailUri)) {
+                        await launchUrl(emailUri);
+                      }
+                    },
+                  ),
+                  _buildContactItem(
+                    icon: Icons.phone,
+                    text: '+91 73061 24112',
+                    onTap: () async {
+                      Navigator.pop(context);
+                      final Uri telUri = Uri(
+                        scheme: 'tel',
+                        path: '+917306124112',
+                      );
+                      if (await canLaunchUrl(telUri)) {
+                        await launchUrl(telUri);
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
+
 // Add this new method in your _HeaderBlockState class:
-void _showGalleryMenu(PointerEnterEvent event) {
-  final position = RelativeRect.fromLTRB(
-    event.position.dx,
-    event.position.dy,
-    event.position.dx,
-    event.position.dy,
-  );
-  showMenu(
-    context: context,
-    position: position,
-    constraints: const BoxConstraints(minWidth: 350, maxWidth: 350),
-    items: [
-      PopupMenuItem(
-        enabled: false,
-        child: MouseRegion(
-          hitTestBehavior: HitTestBehavior.translucent,
-          onExit: (_) => Navigator.pop(context),
-          child: Container(
-            width: 350,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.9),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.purpleAccent, width: 1),
-            ),
-            child: Center(
-              child: Text(
-                'Gallery will be updated soon',
-                style: TextStyle(
-                  fontFamily: 'Orbitron',
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+  void _showGalleryMenu(PointerEnterEvent event) {
+    final position = RelativeRect.fromLTRB(
+      event.position.dx,
+      event.position.dy,
+      event.position.dx,
+      event.position.dy,
+    );
+    showMenu(
+      context: context,
+      position: position,
+      constraints: const BoxConstraints(minWidth: 350, maxWidth: 350),
+      items: [
+        PopupMenuItem(
+          enabled: false,
+          child: MouseRegion(
+            hitTestBehavior: HitTestBehavior.translucent,
+            onExit: (_) => Navigator.pop(context),
+            child: Container(
+              width: 350,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.purpleAccent, width: 1),
+              ),
+              child: Center(
+                child: Text(
+                  'Gallery will be updated soon',
+                  style: TextStyle(
+                    fontFamily: 'Orbitron',
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    ],
-  );
-}
-
+      ],
+    );
+  }
 
   void _showMobileMenu() {
     setState(() => _isMenuOpen = true);
@@ -483,62 +483,62 @@ void _showGalleryMenu(PointerEnterEvent event) {
       ),
     );
   }
-Widget _buildMobileNavItem(String title, int index) {
-  return ListTile(
-    contentPadding: EdgeInsets.zero,
-    title: Text(
-      title,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontFamily: 'Orbitron',
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-    onTap: () {
-      if (title == 'HOME') {
-        _reloadHome();
-      } else if (title == 'GALLERY') {
-        // Show a dialog indicating gallery will be updated soon.
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: Colors.black,
-            title: Text(
-              'Gallery',
-              style: TextStyle(
-                fontFamily: 'Orbitron',
-                color: Colors.white,
-              ),
-            ),
-            content: Text(
-              'Gallery will be updated soon',
-              style: TextStyle(
-                fontFamily: 'Orbitron',
-                color: Colors.white70,
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(
-                  'OK',
-                  style: TextStyle(
-                    color: Colors.purpleAccent,
-                    fontFamily: 'Orbitron',
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
-      }
-      Navigator.pop(context);
-    },
-  );
-}
 
+  Widget _buildMobileNavItem(String title, int index) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        title,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'Orbitron',
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      onTap: () {
+        if (title == 'HOME') {
+          _reloadHome();
+        } else if (title == 'GALLERY') {
+          // Show a dialog indicating gallery will be updated soon.
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: Colors.black,
+              title: Text(
+                'Gallery',
+                style: TextStyle(
+                  fontFamily: 'Orbitron',
+                  color: Colors.white,
+                ),
+              ),
+              content: Text(
+                'Gallery will be updated soon',
+                style: TextStyle(
+                  fontFamily: 'Orbitron',
+                  color: Colors.white70,
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    'OK',
+                    style: TextStyle(
+                      color: Colors.purpleAccent,
+                      fontFamily: 'Orbitron',
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+        Navigator.pop(context);
+      },
+    );
+  }
 
   Widget _buildMobileJoinButton() {
     return Padding(
@@ -627,19 +627,16 @@ Widget _buildMobileNavItem(String title, int index) {
                     _registerUri,
                     webOnlyWindowName: '_blank', // ← opens in new tab
                   );
-                
                 } else if (eventType == 'cultural') {
-                   final Uri _registerUri =
+                  final Uri _registerUri =
                       Uri.parse('https://www.dikshaiet.com/cultural-events');
 
                   await launchUrl(
                     _registerUri,
                     webOnlyWindowName: '_blank', // ← opens in new tab
                   );
-                
                 }
               },
-
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
@@ -747,7 +744,7 @@ Widget _buildMobileNavItem(String title, int index) {
             setState(() => _selectedIndex = idx);
             if (item == 'EVENTS') _showEventsMenu(e);
             if (item == 'CONTACT US') _showContactMenu(e);
-             if (item == 'GALLERY') _showGalleryMenu(e);
+            if (item == 'GALLERY') _showGalleryMenu(e);
           },
           onExit: (_) => setState(() => _selectedIndex = -1),
           child: AnimatedContainer(
@@ -860,32 +857,41 @@ Widget _buildMobileNavItem(String title, int index) {
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: MouseRegion(
-        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _isRegisterHovered = true),
+        onExit: (_) => setState(() => _isRegisterHovered = false),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
+          transform: Matrix4.identity()
+            ..scale(_isRegisterHovered ? 1.05 : 1.0)
+            ..translate(0.0, _isRegisterHovered ? -2.0 : 0.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            gradient: const LinearGradient(
-              colors: [Color(0xFF9D50FF), Color(0xFF6E0CC0)],
+            gradient: LinearGradient(
+              colors: _isRegisterHovered
+                  ? [const Color(0xFFB76EFF), const Color(0xFF8A1CE0)]
+                  : [const Color(0xFF9D50FF), const Color(0xFF6E0CC0)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.purpleAccent.withOpacity(0.4),
-                blurRadius: 15,
-                spreadRadius: 3,
+                color: Colors.purpleAccent
+                    .withOpacity(_isRegisterHovered ? 0.6 : 0.4),
+                blurRadius: _isRegisterHovered ? 25 : 15,
+                spreadRadius: _isRegisterHovered ? 8 : 3,
               )
             ],
+            border: _isRegisterHovered
+                ? Border.all(color: Colors.white, width: 1)
+                : null,
           ),
           child: TextButton(
             onPressed: () async {
               final Uri _registerUri =
                   Uri.parse('https://tiqr.events/e/PROSHOW-TICKETS-1119');
-
               await launchUrl(
                 _registerUri,
-                webOnlyWindowName: '_blank', // ← opens in new tab
+                webOnlyWindowName: '_blank',
               );
             },
             style: TextButton.styleFrom(
@@ -895,31 +901,35 @@ Widget _buildMobileNavItem(String title, int index) {
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
-                side: BorderSide(
-                  color: Colors.purpleAccent.withOpacity(0.5),
-                  width: 1,
-                ),
               ),
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.app_registration,
-                  color: Colors.white,
-                  size: isTablet ? 20 : 22,
+                AnimatedPadding(
+                  duration: const Duration(milliseconds: 300),
+                  padding:
+                      EdgeInsets.only(right: _isRegisterHovered ? 16.0 : 10.0),
+                  child: Icon(
+                    Icons.app_registration,
+                    color: Colors.white,
+                    size: isTablet ? 20 : 22,
+                  ),
                 ),
-                const SizedBox(width: 10),
-                Text(
-                  'REGISTER',
+                AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 300),
                   style: TextStyle(
                     fontFamily: 'Orbitron',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     shadows: [
-                      const Shadow(color: Colors.purpleAccent, blurRadius: 10)
+                      Shadow(
+                        color: Colors.purpleAccent,
+                        blurRadius: _isRegisterHovered ? 20 : 10,
+                      )
                     ],
                   ),
+                  child: const Text('REGISTER'),
                 ),
               ],
             ),
@@ -948,56 +958,61 @@ Widget _buildMobileNavItem(String title, int index) {
   Widget _buildMobileRegisterButton() {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: const LinearGradient(
-              colors: [Color(0xFF9D50FF), Color(0xFF6E0CC0)],
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.purpleAccent.withOpacity(0.4),
-                blurRadius: 15,
-                spreadRadius: 3,
-              )
-            ],
-          ),
-          child: TextButton(
-            onPressed: () async {
-              final Uri _registerUri =
-                  Uri.parse('https://tiqr.events/e/PROSHOW-TICKETS-1119');
-
-              await launchUrl(
-                _registerUri,
-                webOnlyWindowName: '_blank', // ← opens in new tab
-              );
-            },
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              shape: RoundedRectangleBorder(
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          bool isPressed = false;
+          return GestureDetector(
+            onTapDown: (_) => setState(() => isPressed = true),
+            onTapUp: (_) => setState(() => isPressed = false),
+            onTapCancel: () => setState(() => isPressed = false),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              transform: Matrix4.identity()..scale(isPressed ? 0.95 : 1.0),
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                side: BorderSide(
-                  color: Colors.purpleAccent.withOpacity(0.5),
-                  width: 1,
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF9D50FF), Color(0xFF6E0CC0)],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.purpleAccent.withOpacity(0.4),
+                    blurRadius: 15,
+                    spreadRadius: 3,
+                  )
+                ],
+              ),
+              child: TextButton(
+                onPressed: () async {
+                  final Uri _registerUri =
+                      Uri.parse('https://tiqr.events/e/PROSHOW-TICKETS-1119');
+                  await launchUrl(
+                    _registerUri,
+                    webOnlyWindowName: '_blank',
+                  );
+                },
+                style: TextButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text(
+                  "REGISTER",
+                  style: TextStyle(
+                    fontFamily: 'Orbitron',
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    shadows: [
+                      const Shadow(color: Colors.purpleAccent, blurRadius: 10)
+                    ],
+                  ),
                 ),
               ),
             ),
-            child: Text(
-              "REGISTER",
-              style: TextStyle(
-                fontFamily: 'Orbitron',
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                shadows: [
-                  const Shadow(color: Colors.purpleAccent, blurRadius: 10)
-                ],
-              ),
-            ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

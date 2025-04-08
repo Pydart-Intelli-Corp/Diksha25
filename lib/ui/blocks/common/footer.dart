@@ -149,6 +149,7 @@ class _FooterBlockState extends State<FooterBlock> {
             fit: BoxFit.contain,
           ),
         ),
+        
       ],
     );
   }
@@ -276,8 +277,10 @@ class _FooterBlockState extends State<FooterBlock> {
           const SizedBox(height: 10),
           _buildSocialIcons(),
           const SizedBox(height: 20),
+          _buildCoSponsors(), // Added Co-Sponsors section
+          const SizedBox(height: 20),
           Text(
-            '© 2024 Diksha25. All rights reserved',
+            '© 2025 Diksha25. All rights reserved',
             style: TextStyle(
               color: Colors.white54,
               fontSize: 12,
@@ -286,7 +289,7 @@ class _FooterBlockState extends State<FooterBlock> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Website Credits: Pydart Intelli Corp',
+            'Website Credits: Pydart Intelli Corp Ltd.',
             style: TextStyle(
               color: Colors.white54,
               fontSize: 12,
@@ -347,6 +350,28 @@ class _FooterBlockState extends State<FooterBlock> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCoSponsors() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Replace with your actual asset path, width, and height as necessary.
+        Image.asset(
+          'assets/logos/pydart.png',
+          width: 100,
+          height: 100,
+          fit: BoxFit.contain,
+        ),
+        const SizedBox(width: 30),
+        Image.asset(
+          'assets/logos/brickly.png',
+          width: 100,
+          height: 100,
+          fit: BoxFit.contain,
+        ),
+      ],
     );
   }
 
